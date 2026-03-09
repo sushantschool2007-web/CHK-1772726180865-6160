@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chatbot Demo</title>
+
+<style>
+
+body{
+font-family: Arial, sans-serif;
+height:200vh;
+}
+
+/* Chat Icon */
+
+.chat-icon{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#4CAF50;
+color:white;
+width:60px;
+height:60px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+cursor:pointer;
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Chat Window */
+
+.chatbox{
+position:fixed;
+bottom:90px;
+right:20px;
+width:320px;
+background:white;
+border-radius:12px;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+display:none;
+flex-direction:column;
+overflow:hidden;
+}
+
+/* Header */
+
+.chat-header{
+background:#4CAF50;
+color:white;
+padding:12px;
+font-weight:bold;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.close-btn{
+cursor:pointer;
+}
+
+/* Messages */
+
+.chat-messages{
+height:250px;
+overflow-y:auto;
+padding:10px;
+background:#f5f5f5;
+}
+
+.message{
+margin:8px 0;
+padding:8px 12px;
+border-radius:8px;
+max-width:80%;
+}
+
+.user{
+background:#4CAF50;
+color:white;
+margin-left:auto;
+}
+
+.bot{
+background:white;
+border:1px solid #ddd;
+}
+
+/* Input */
+
+.chat-input{
+display:flex;
+border-top:1px solid #ddd;
+}
+
+.chat-input input{
+flex:1;
+padding:10px;
+border:none;
+outline:none;
+}
+
+.chat-input button{
+background:#4CAF50;
+color:white;
+border:none;
+padding:10px 15px;
+cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<h2 style="padding:40px">Website with Chatbot</h2>
+
+<!-- Chat Icon -->
+
+<div class="chat-icon" onclick="toggleChat()">💬</div>
+
+<!-- Chatbox -->
+
+<div class="chatbox" id="chatbox">
+
+<div class="chat-header">
+AI Chatbot
+<span class="close-btn" onclick="toggleChat()">✖</span>
+</div>
+
+<div class="chat-messages" id="messages">
+<div class="message bot">Hello 👋 How can I help you today?</div>
+</div>
+
+<div class="chat-input">
+<input type="text" id="userInput" placeholder="Type a message...">
+<button onclick="sendMessage()">Send</button>
+</div>
+
+</div>
+
+<script>
+
+function toggleChat(){
+const chatbox = document.getElementById("chatbox");
+chatbox.style.display = chatbox.style.display === "flex" ? "none" : "flex";
+}
+
+function sendMessage(){
+
+const input = document.getElementById("userInput");
+const message = input.value.trim();
+
+if(message === "") return;
+
+const messages = document.getElementById("messages");
+
+const userMsg = document.createElement("div");
+userMsg.className = "message user";
+userMsg.textContent = message;
+messages.appendChild(userMsg);
+
+input.value="";
+
+setTimeout(()=>{
+
+const botMsg = document.createElement("div");
+botMsg.className="message bot";
+botMsg.textContent = getBotResponse(message);
+
+messages.appendChild(botMsg);
+messages.scrollTop = messages.scrollHeight;
+
+},600)
+
+}
+
+function getBotResponse(input){
+
+input = input.toLowerCase();
+
+if(input.includes("hello") || input.includes("hi"))
+return "Hello! 😊 How can I assist you?";
+
+if(input.includes("project"))
+return "Are you working on a hackathon project?";
+
+if(input.includes("help"))
+return "Sure! Tell me what you need help with.";
+
+return "I'm still learning 🤖 but I will try to help!";
+}
+
+</script>
+
+</body>
+</html>

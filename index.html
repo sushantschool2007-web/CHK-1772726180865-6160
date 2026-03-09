@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Empathy First Triage AI</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+body{
+font-family:'Inter',sans-serif;
+margin:0;
+background:#0f172a;
+color:white;
+overflow-x:hidden;
+}
+
+/* ANIMATED BACKGROUND */
+
+body::before{
+content:'';
+position:fixed;
+width:800px;
+height:800px;
+background:radial-gradient(circle,#38bdf8,transparent);
+top:-200px;
+left:-200px;
+opacity:.2;
+filter:blur(100px);
+animation:float 10s infinite alternate;
+}
+
+body::after{
+content:'';
+position:fixed;
+width:700px;
+height:700px;
+background:radial-gradient(circle,#6366f1,transparent);
+bottom:-200px;
+right:-200px;
+opacity:.2;
+filter:blur(120px);
+animation:float 12s infinite alternate;
+}
+
+@keyframes float{
+from{transform:translateY(0)}
+to{transform:translateY(80px)}
+}
+
+/* HERO */
+
+.hero{
+padding:120px 60px;
+text-align:center;
+}
+
+.hero h1{
+font-size:3.8rem;
+font-weight:800;
+background:linear-gradient(90deg,#38bdf8,#a78bfa);
+-webkit-background-clip:text;
+color:transparent;
+}
+
+.hero p{
+opacity:.75;
+max-width:600px;
+margin:auto;
+margin-top:20px;
+font-size:1.1rem;
+}
+
+.hero-buttons{
+margin-top:40px;
+}
+
+.btn{
+padding:14px 34px;
+border-radius:12px;
+font-weight:600;
+text-decoration:none;
+margin:8px;
+display:inline-block;
+}
+
+.btn-primary{
+background:linear-gradient(135deg,#38bdf8,#6366f1);
+color:white;
+}
+
+.btn-glass{
+background:rgba(255,255,255,.1);
+border:1px solid rgba(255,255,255,.2);
+backdrop-filter:blur(10px);
+color:white;
+}
+
+/* GLASS CARD */
+
+.glass{
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.1);
+backdrop-filter:blur(15px);
+border-radius:20px;
+padding:30px;
+}
+
+/* STATS */
+
+.stats{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:20px;
+padding:0 60px;
+margin-top:40px;
+}
+
+.stat{
+text-align:center;
+}
+
+.stat h2{
+color:#38bdf8;
+font-size:2rem;
+margin:0;
+}
+
+/* SECTION */
+
+.section{
+padding:100px 60px;
+}
+
+.section-title{
+text-align:center;
+font-size:2.5rem;
+font-weight:800;
+margin-bottom:10px;
+}
+
+.section-sub{
+text-align:center;
+opacity:.6;
+margin-bottom:60px;
+}
+
+/* FEATURES */
+
+.features{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:25px;
+}
+
+.feature{
+transition:.3s;
+}
+
+.feature:hover{
+transform:translateY(-10px);
+}
+
+/* DASHBOARD MOCK */
+
+.dashboard{
+margin-top:60px;
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:30px;
+}
+
+.chart{
+height:250px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:1.2rem;
+opacity:.7;
+}
+
+.ai-card{
+padding:25px;
+}
+
+/* CTA */
+
+.cta{
+margin:100px 60px;
+padding:80px;
+text-align:center;
+background:linear-gradient(135deg,#6366f1,#38bdf8);
+border-radius:40px;
+}
+
+.cta h2{
+font-size:2.5rem;
+margin-bottom:20px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+.hero{padding:80px 30px}
+
+.stats{grid-template-columns:repeat(2,1fr);padding:0 30px}
+
+.features{grid-template-columns:1fr}
+
+.dashboard{grid-template-columns:1fr}
+
+.section{padding:60px 30px}
+
+.cta{margin:60px 30px}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<h1>Empathy-First Triage AI</h1>
+
+<p>
+AI-powered emotional intelligence platform helping doctors detect mental health risks
+through voice, facial expressions, and patient narratives.
+</p>
+
+<div class="hero-buttons">
+
+<a class="btn btn-primary">Start AI Analysis</a>
+
+<a class="btn btn-glass">Watch Demo</a>
+
+</div>
+
+</section>
+
+
+<!-- STATS -->
+
+<div class="stats">
+
+<div class="glass stat">
+<h2>3</h2>
+<p>AI Detection Models</p>
+</div>
+
+<div class="glass stat">
+<h2>95%</h2>
+<p>Emotion Accuracy</p>
+</div>
+
+<div class="glass stat">
+<h2>24/7</h2>
+<p>AI Monitoring</p>
+</div>
+
+<div class="glass stat">
+<h2>1M+</h2>
+<p>Future Patients Helped</p>
+</div>
+
+</div>
+
+
+<!-- FEATURES -->
+
+<section class="section">
+
+<h2 class="section-title">AI Emotion Intelligence</h2>
+
+<p class="section-sub">
+Multi-modal AI that understands human emotions.
+</p>
+
+<div class="features">
+
+<div class="glass feature">
+<h3>🎤 Voice Stress AI</h3>
+<p>Detects anxiety through speech tone, tremors, and vocal patterns.</p>
+</div>
+
+<div class="glass feature">
+<h3>📷 Facial Emotion AI</h3>
+<p>Recognizes micro-expressions invisible to the human eye.</p>
+</div>
+
+<div class="glass feature">
+<h3>🧠 AI Reasoning Engine</h3>
+<p>Combines LLM reasoning with clinical data for insights.</p>
+</div>
+
+<div class="glass feature">
+<h3>📊 Doctor Dashboard</h3>
+<p>Visual emotional insights to assist clinical decisions.</p>
+</div>
+
+<div class="glass feature">
+<h3>🔒 Privacy Protection</h3>
+<p>Secure patient emotional data with encryption.</p>
+</div>
+
+<div class="glass feature">
+<h3>📈 Emotion Analytics</h3>
+<p>Track patient mental health patterns over time.</p>
+</div>
+
+</div>
+
+
+<!-- AI DASHBOARD -->
+
+<div class="dashboard section">
+
+<div class="glass chart">
+
+Emotion Trend Chart (AI Analytics)
+
+</div>
+
+<div class="glass ai-card">
+
+<h3>AI Diagnosis Insight</h3>
+
+<p>
+Possible anxiety detected based on emotional signals.
+Recommend psychological evaluation and follow-up monitoring.
+</p>
+
+</div>
+
+</div>
+
+
+<!-- CTA -->
+
+<div class="cta">
+
+<h2>Empathy is Essential</h2>
+
+<p>
+The future of AI-assisted mental health diagnosis.
+</p>
+
+<a class="btn btn-primary">Try the Platform</a>
+
+</div>
+
+</body>
+</html>
