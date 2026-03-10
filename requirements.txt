@@ -1,0 +1,3 @@
+django
+pymongo[srv]
+dnspython

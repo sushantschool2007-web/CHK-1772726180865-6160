@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empathy First | Doctor's Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #09090b;
+            --surface: rgba(255, 255, 255, 0.03);
+            --surface-hover: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.08);
+            --border-light: rgba(255, 255, 255, 0.15);
+            --primary: #38bdf8;
+            --secondary: #818cf8;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Ambient Background Effects */
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -1;
+            opacity: 0.3;
+            animation: float 15s ease-in-out infinite alternate;
+            pointer-events: none;
+        }
+
+        body::before {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--primary), transparent 60%);
+            top: -100px;
+            left: -200px;
+        }
+
+        body::after {
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, var(--secondary), transparent 60%);
+            bottom: -200px;
+            right: -200px;
+            animation-delay: -5s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            100% {
+                transform: translate(50px, 80px);
+            }
+        }
+
+        /* Typography & Utilities */
+        h1,
+        h2,
+        h3,
+        h4 {
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+        p {
+            color: var(--text-muted);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .glass {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 28px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            outline: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(56, 189, 248, 0.4);
+        }
+
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            background: rgba(9, 9, 11, 0.7);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 120px 5% 0;
+            /* Adjusted for navbar */
+        }
+
+        /* Sections */
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+            margin-top: 40px;
+        }
+
+        .section-header h2 {
+            font-size: 2.75rem;
+            margin-bottom: 16px;
+        }
+
+        .section-header p {
+            font-size: 1.15rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .tool-card {
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--border-light);
+        }
+
+        .tool-card h3 {
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .tool-card-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        /* Input Elements inside cards */
+        .tool-card input,
+        .tool-card textarea {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 14px;
+            color: var(--text);
+            font-family: inherit;
+            resize: none;
+            transition: border 0.2s;
+        }
+
+        .tool-card input:focus,
+        .tool-card textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .tool-card video {
+            width: 100%;
+            border-radius: 12px;
+            margin-top: 10px;
+            background: #000;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+        }
+
+        .result-box {
+            margin-top: auto;
+            padding-top: 16px;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1.1rem;
+            text-align: center;
+            min-height: 48px;
+        }
+
+        /* Interactive Dashboard Area */
+        .dashboard-preview {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+            margin-bottom: 120px;
+        }
+
+        .dash-main {
+            padding: 40px;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 1px dashed var(--border-light);
+        }
+
+        .dash-side {
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        #dashboard {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        #dashboard b {
+            color: var(--primary);
+            font-size: 1.3rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 5%;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-muted);
+            margin-top: 60px;
+        }
+
+        /* Nav Actions & Icon Buttons */
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Shared style for both icon buttons */
+        .icon-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        /* Settings (gear) icon button */
+        .settings-icon-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-light);
+            color: var(--text-muted);
+        }
+
+        .settings-icon-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text);
+            border-color: var(--text-muted);
+            transform: rotate(30deg) scale(1.08);
+        }
+
+        /* Profile (avatar) button */
+        .settings-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: 2px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: #fff;
+            font-weight: 800;
+            font-size: 0.9rem;
+            position: relative;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+        }
+
+        .settings-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.5);
+            border-color: #fff;
+        }
+
+        /* Shared dropdown base */
+        .profile-dropdown,
+        .settings-dropdown {
+            position: absolute;
+            top: calc(100% + 15px);
+            right: 0;
+            width: 280px;
+            padding: 24px;
+            display: none;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 1000;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .profile-dropdown.active,
+        .settings-dropdown.active {
+            display: flex;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Profile dropdown internals */
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .profile-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+        }
+
+        .profile-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 2px;
+        }
+
+        .profile-info p {
+            font-size: 0.8rem;
+            color: var(--primary);
+        }
+
+        .profile-details {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+        }
+
+        .detail-label {
+            color: var(--text-muted);
+        }
+
+        .detail-value {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .dropdown-links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .dropdown-links a {
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-muted);
+        }
+
+        .dropdown-links a:hover {
+            background: var(--surface-hover);
+            color: var(--text);
+        }
+
+        .logout-link {
+            color: #f87171 !important;
+            border-top: 1px solid var(--border);
+            padding-top: 15px !important;
+            margin-top: 5px;
+        }
+
+        /* Settings dropdown internals */
+        .settings-section-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: var(--primary);
+            letter-spacing: 1px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .lang-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: 0.2s;
+            text-align: center;
+        }
+
+        .lang-btn:hover {
+            background: var(--surface-hover);
+            color: var(--text);
+        }
+
+        .lang-btn.active {
+            background: rgba(56, 189, 248, 0.1);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        @media (max-width: 1024px) {
+            .tools-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .dashboard-preview {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <div class="logo">✦ Empathy<span>First</span></div>
+        <div class="nav-links">
+            <a href="{% url 'index' %}" style="color: var(--text);">Home</a>
+            <a href="{% url 'about' %}">About</a>
+            <a href="{% url 'dashboard' %}" style="color: var(--text);">Doctor's Dashboard</a>
+            <a href="https://gemini.google.com/app" target="_blank">Chat Triage</a>
+        </div>
+        <a href="{% url 'index' %}" class="btn btn-outline"
+            style="padding: 10px 20px; font-size: 0.9rem; margin-right: 10px;">← Back</a>
+
+        <div class="nav-actions">
+
+            <!-- ⚙️ Settings Icon -->
+            <div class="icon-btn settings-icon-btn" id="settingsIconBtn" onclick="toggleSettings()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path
+                        d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z">
+                    </path>
+                </svg>
+
+                <!-- Settings Dropdown -->
+                <div class="glass settings-dropdown" id="settingsDropdown" onclick="event.stopPropagation()">
+                    <span class="settings-section-label">⚙️ Settings</span>
+
+                    <div>
+                        <span class="settings-section-label">Change Language</span>
+                        <div class="lang-grid">
+                            <button onclick="setLanguage('en')" class="lang-btn active" id="lang-en">🇺🇸 EN</button>
+                            <button onclick="setLanguage('es')" class="lang-btn" id="lang-es">🇪🇸 ES</button>
+                            <button onclick="setLanguage('fr')" class="lang-btn" id="lang-fr">🇫🇷 FR</button>
+                            <button onclick="setLanguage('hi')" class="lang-btn" id="lang-hi">🇮🇳 HI</button>
+                        </div>
+                    </div>
+
+                    <div class="dropdown-links" style="border-top: 1px solid var(--border); padding-top: 12px;">
+                        <a href="#">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                            Account Settings
+                        </a>
+                        <a href="#" class="logout-link">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                <polyline points="16 17 21 12 16 7"></polyline>
+                                <line x1="21" y1="12" x2="9" y2="12"></line>
+                            </svg>
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 👤 Profile Avatar -->
+            <div class="settings-btn" id="settingsBtn" onclick="toggleProfile()">
+                SS
+                <!-- Profile Dropdown -->
+                <div class="glass profile-dropdown" id="profileDropdown" onclick="event.stopPropagation()">
+                    <div class="profile-header">
+                        <div class="profile-avatar">SS</div>
+                        <div class="profile-info">
+                            <h4>Sushant</h4>
+                            <p>Patient Tier: Premium</p>
+                        </div>
+                    </div>
+
+                    <div class="profile-details">
+                        <div class="detail-item">
+                            <span class="detail-label" data-i18n="profile_id">Patient ID</span>
+                            <span class="detail-value">PX-2026-4412</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label" data-i18n="profile_status">Status</span>
+                            <span class="detail-value" style="color: #4ade80;"><span data-i18n="status_active">●
+                                    Active</span></span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label" data-i18n="profile_checkup">Next Checkup</span>
+                            <span class="detail-value" data-i18n="checkup_date">March 15, 2026</span>
+                        </div>
+                    </div>
+
+                    <div class="dropdown-links">
+                        <a href="#">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            Edit Profile
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- DEMO SECTION -->
+        <section id="demo">
+            <div class="section-header">
+                <h2 data-i18n="dash_title">Multi-Modal Emotion AI</h2>
+                <p data-i18n="dash_subtitle">Test the capabilities of our reasoning engines below. Ensure permissions
+                    are granted where necessary.
+                </p>
+            </div>
+
+            <div class="tools-grid">
+
+                <!-- TEXT AI (Chatbot Style) -->
+                <div class="glass tool-card" style="grid-row: span 2;">
+                    <div class="tool-card-icon">🧠</div>
+                    <h3 data-i18n="tool_nlp_title">AI Reasoning NLP</h3>
+                    <p style="font-size: 0.85rem; margin-bottom: 5px;" data-i18n="tool_nlp_desc">Detect emotional intent
+                        and clinical risk from
+                        patient narratives.</p>
+
+                    <!-- Chat Area -->
+                    <div id="nlpChat"
+                        style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; margin-bottom: 12px; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 12px; min-height: 250px; max-height: 400px; scroll-behavior: smooth;">
+                        <div
+                            style="padding: 10px; background: rgba(56,189,248,0.1); border-radius: 12px; font-size: 0.9rem; align-self: flex-start; max-width: 90%; color: var(--text-muted);">
+                            Hello. I am the clinical reasoning engine. Please describe the patient's symptoms or
+                            narrative here to begin.
+                        </div>
+                    </div>
+
+                    <!-- Input Area -->
+                    <div style="display: flex; gap: 10px; margin-top: auto;">
+                        <textarea id="symptoms" rows="1" placeholder="Type patient narrative..."
+                            data-i18n-placeholder="tool_nlp_placeholder"
+                            style="flex: 1; padding: 12px; font-size: 0.9rem;"
+                            onkeypress="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); analyzeText(); }"></textarea>
+                        <button class="btn btn-primary" onclick="analyzeText()"
+                            style="padding: 12px 18px; border-radius: 12px;" data-i18n="btn_send">Send</button>
+                    </div>
+                </div>
+
+                <!-- CAMERA AI -->
+                <div class="glass tool-card">
+                    <div class="tool-card-icon">📷</div>
+                    <h3 data-i18n="tool_vision_title">AI Visual Health Scan</h3>
+                    <p data-i18n="tool_vision_desc">Early Health Indicator Detection via eye and skin wellness
+                        indicators.</p>
+                    <button class="btn btn-primary" onclick="startCamera()" style="width: 100%;"
+                        data-i18n="btn_start_scan">Start Visual Scan</button>
+                    <video id="video" autoplay style="display: none;"></video>
+                    <div id="faceResult" class="result-box"
+                        style="white-space: pre-wrap; text-align: left; font-size: 0.95rem; font-weight: normal; line-height: 1.5;">
+                    </div>
+                </div>
+
+                <!-- VOICE AI -->
+                <div class="glass tool-card">
+                    <div class="tool-card-icon">🎤</div>
+                    <h3 data-i18n="tool_voice_title">Voice Stress Analysis</h3>
+                    <p data-i18n="tool_voice_desc">Algorithmic decomposition of vocal tremors and speech velocity.</p>
+                    <button class="btn btn-primary" onclick="startVoice()" style="width: 100%; margin-top: auto;"
+                        data-i18n="btn_record">Record Sample</button>
+                    <div id="voiceResult" class="result-box"></div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ─── PATIENT MEDICAL HISTORY ─── -->
+        <div class="section-header" style="margin-top: 80px;">
+            <h2 style="font-size: 2.2rem;">🗂️ Patient Medical History</h2>
+            <p>A complete longitudinal overview of patient PX-2026-4412 — Sushant</p>
+        </div>
+
+        <div class="glass" style="padding: 0; overflow: hidden; margin-bottom: 120px; border-radius: 24px;">
+
+            <!-- PROFILE STRIP -->
+            <div
+                style="display: flex; align-items: center; gap: 24px; padding: 28px 36px; background: linear-gradient(135deg, rgba(56,189,248,0.08), rgba(129,140,248,0.06)); border-bottom: 1px solid var(--border);">
+                <div
+                    style="width: 66px; height: 66px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; font-weight: 800; flex-shrink: 0; border: 2px solid rgba(56,189,248,0.4); box-shadow: 0 0 20px rgba(56,189,248,0.25);">
+                    SS</div>
+                <div style="flex: 1;">
+                    <h3 style="font-size: 1.3rem; color: var(--text); margin-bottom: 4px;">Sushant &nbsp;<span
+                            style="font-size: 0.75rem; background: rgba(74,222,128,0.12); color: #4ade80; border: 1px solid rgba(74,222,128,0.3); padding: 3px 10px; border-radius: 100px; font-weight: 600; letter-spacing: 0.5px;">●
+                            Active</span></h3>
+                    <div style="display: flex; gap: 28px; flex-wrap: wrap; margin-top: 6px;">
+                        <span style="font-size: 0.82rem; color: var(--text-muted);">🪪 ID: <b
+                                style="color:var(--text);">PX-2026-4412</b></span>
+                        <span style="font-size: 0.82rem; color: var(--text-muted);">🎂 DOB: <b
+                                style="color:var(--text);">23 Jul 2007</b></span>
+                        <span style="font-size: 0.82rem; color: var(--text-muted);">🩸 Blood: <b
+                                style="color:var(--text);">O+</b></span>
+                        <span style="font-size: 0.82rem; color: var(--text-muted);">📏 Height: <b
+                                style="color:var(--text);">178 cm</b></span>
+                        <span style="font-size: 0.82rem; color: var(--text-muted);">⚖️ Weight: <b
+                                style="color:var(--text);">74 kg</b></span>
+                        <span style="font-size: 0.82rem; color: var(--text-muted);">🏥 Tier: <b
+                                style="color: var(--primary);">Premium</b></span>
+                    </div>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 8px; text-align: right; flex-shrink: 0;">
+                    <span style="font-size: 0.78rem; color: var(--text-muted);">Next Checkup</span>
+                    <span style="font-size: 1rem; font-weight: 700; color: var(--primary);">Mar 15, 2026</span>
+                    <span
+                        style="font-size: 0.75rem; padding: 4px 12px; border-radius: 100px; background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.3); color: var(--primary);">5
+                        days away</span>
+                </div>
+            </div>
+
+            <!-- TAB NAVIGATION -->
+            <div style="display: flex; gap: 0; border-bottom: 1px solid var(--border); padding: 0 36px; background: rgba(0,0,0,0.15);"
+                id="historyTabs">
+                <button onclick="switchTab('overview')" id="tab-overview" class="hist-tab hist-tab-active">📋
+                    Overview</button>
+                <button onclick="switchTab('visits')" id="tab-visits" class="hist-tab">🏥 Visit History</button>
+                <button onclick="switchTab('meds')" id="tab-meds" class="hist-tab">💊 Medications</button>
+                <button onclick="switchTab('labs')" id="tab-labs" class="hist-tab">🔬 Lab Results</button>
+            </div>
+
+            <!-- TAB CONTENT WRAPPER -->
+            <div style="padding: 36px;">
+
+                <!-- ═══ TAB: OVERVIEW ═══ -->
+                <div id="panel-overview">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+
+                        <!-- Conditions -->
+                        <div
+                            style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 16px; padding: 24px;">
+                            <h4
+                                style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--primary); margin-bottom: 16px; font-weight: 700;">
+                                Active Conditions</h4>
+                            <div style="display: flex; flex-direction: column; gap: 10px;">
+                                <div
+                                    style="display:flex; justify-content:space-between; align-items:center; padding: 10px 14px; border-radius: 10px; background: rgba(248,113,113,0.07); border: 1px solid rgba(248,113,113,0.2);">
+                                    <span style="font-size:0.9rem; color:var(--text);">Generalised Anxiety
+                                        Disorder</span>
+                                    <span
+                                        style="font-size:0.75rem; padding:3px 10px; border-radius:100px; background:rgba(248,113,113,0.15); color:#f87171; border:1px solid rgba(248,113,113,0.3); font-weight:600;">High</span>
+                                </div>
+                                <div
+                                    style="display:flex; justify-content:space-between; align-items:center; padding: 10px 14px; border-radius: 10px; background: rgba(251,146,60,0.07); border: 1px solid rgba(251,146,60,0.2);">
+                                    <span style="font-size:0.9rem; color:var(--text);">Mild Depressive Episode</span>
+                                    <span
+                                        style="font-size:0.75rem; padding:3px 10px; border-radius:100px; background:rgba(251,146,60,0.15); color:#fb923c; border:1px solid rgba(251,146,60,0.3); font-weight:600;">Moderate</span>
+                                </div>
+                                <div
+                                    style="display:flex; justify-content:space-between; align-items:center; padding: 10px 14px; border-radius: 10px; background: rgba(56,189,248,0.06); border: 1px solid rgba(56,189,248,0.15);">
+                                    <span style="font-size:0.9rem; color:var(--text);">Insomnia (Chronic)</span>
+                                    <span
+                                        style="font-size:0.75rem; padding:3px 10px; border-radius:100px; background:rgba(56,189,248,0.1); color:var(--primary); border:1px solid rgba(56,189,248,0.3); font-weight:600;">Stable</span>
+                                </div>
+                                <div
+                                    style="display:flex; justify-content:space-between; align-items:center; padding: 10px 14px; border-radius: 10px; background: rgba(74,222,128,0.05); border: 1px solid rgba(74,222,128,0.15);">
+                                    <span style="font-size:0.9rem; color:var(--text);">Hypertension (Stage 1)</span>
+                                    <span
+                                        style="font-size:0.75rem; padding:3px 10px; border-radius:100px; background:rgba(74,222,128,0.1); color:#4ade80; border:1px solid rgba(74,222,128,0.25); font-weight:600;">Managed</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Allergies + Vitals -->
+                        <div style="display: flex; flex-direction: column; gap: 20px;">
+                            <div
+                                style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 16px; padding: 24px;">
+                                <h4
+                                    style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: #f87171; margin-bottom: 14px; font-weight: 700;">
+                                    ⚠️ Known Allergies</h4>
+                                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                    <span
+                                        style="padding: 6px 14px; border-radius: 100px; background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.25); font-size: 0.82rem; color: #f87171;">Penicillin</span>
+                                    <span
+                                        style="padding: 6px 14px; border-radius: 100px; background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.25); font-size: 0.82rem; color: #f87171;">Sulfonamides</span>
+                                    <span
+                                        style="padding: 6px 14px; border-radius: 100px; background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.25); font-size: 0.82rem; color: #f87171;">Latex</span>
+                                </div>
+                            </div>
+                            <div
+                                style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 16px; padding: 24px;">
+                                <h4
+                                    style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--primary); margin-bottom: 14px; font-weight: 700;">
+                                    Last Recorded Vitals</h4>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                                    <div
+                                        style="text-align:center; padding: 12px; border-radius: 10px; background: rgba(56,189,248,0.05); border: 1px solid var(--border);">
+                                        <div style="font-size: 1.4rem; font-weight: 800; color: var(--text);">128/82
+                                        </div>
+                                        <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">mmHg
+                                            · BP</div>
+                                    </div>
+                                    <div
+                                        style="text-align:center; padding: 12px; border-radius: 10px; background: rgba(56,189,248,0.05); border: 1px solid var(--border);">
+                                        <div style="font-size: 1.4rem; font-weight: 800; color: var(--text);">76</div>
+                                        <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">bpm
+                                            · Heart Rate</div>
+                                    </div>
+                                    <div
+                                        style="text-align:center; padding: 12px; border-radius: 10px; background: rgba(56,189,248,0.05); border: 1px solid var(--border);">
+                                        <div style="font-size: 1.4rem; font-weight: 800; color: #4ade80;">98.4°</div>
+                                        <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">°F ·
+                                            Temperature</div>
+                                    </div>
+                                    <div
+                                        style="text-align:center; padding: 12px; border-radius: 10px; background: rgba(56,189,248,0.05); border: 1px solid var(--border);">
+                                        <div style="font-size: 1.4rem; font-weight: 800; color: var(--text);">99%</div>
+                                        <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">SpO₂
+                                            · Oxygen</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ═══ TAB: VISIT HISTORY ═══ -->
+                <div id="panel-visits" style="display:none;">
+                    <div
+                        style="position: relative; padding-left: 28px; border-left: 2px solid var(--border); display: flex; flex-direction: column; gap: 0;">
+
+                        <!-- Visit entry macro -->
+                        <div class="visit-entry">
+                            <div class="visit-dot" style="background: #f87171;"></div>
+                            <div class="visit-date">Feb 28, 2026</div>
+                            <div class="visit-body">
+                                <div
+                                    style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+                                    <h4 style="color:var(--text); font-size:1rem;">Emergency Triage — High Anxiety
+                                        Attack</h4>
+                                    <span
+                                        style="font-size:0.73rem; padding:3px 10px; border-radius:100px; background:rgba(248,113,113,0.12); color:#f87171; border:1px solid rgba(248,113,113,0.25); white-space:nowrap; margin-left:12px;">Urgent</span>
+                                </div>
+                                <p
+                                    style="font-size: 0.85rem; color:var(--text-muted); line-height:1.6; margin-bottom:10px;">
+                                    Patient presented with acute anxiety episode, palpitations, and hyperventilation.
+                                    EmpathyFirst AI flagged elevated stress score (92/100) via voice analysis. IV
+                                    lorazepam administered, stabilised in 45 minutes.</p>
+                                <div style="display:flex; gap:8px; flex-wrap:wrap;"><span class="visit-tag">Dr. N.
+                                        Kapoor</span><span class="visit-tag">ER Ward B</span><span class="visit-tag">ECG
+                                        Normal</span></div>
+                            </div>
+                        </div>
+
+                        <div class="visit-entry">
+                            <div class="visit-dot" style="background: #fb923c;"></div>
+                            <div class="visit-date">Jan 15, 2026</div>
+                            <div class="visit-body">
+                                <div
+                                    style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+                                    <h4 style="color:var(--text); font-size:1rem;">Psychiatry Follow-Up — Medication
+                                        Review</h4>
+                                    <span
+                                        style="font-size:0.73rem; padding:3px 10px; border-radius:100px; background:rgba(251,146,60,0.12); color:#fb923c; border:1px solid rgba(251,146,60,0.25); white-space:nowrap; margin-left:12px;">Routine</span>
+                                </div>
+                                <p
+                                    style="font-size: 0.85rem; color:var(--text-muted); line-height:1.6; margin-bottom:10px;">
+                                    Monthly check-in with Dr. Anjali Rao. Sertraline dose adjusted from 50mg to 75mg.
+                                    Patient reports improved sleep but persisting low mood in mornings. Referral to CBT
+                                    group therapy initiated.</p>
+                                <div style="display:flex; gap:8px; flex-wrap:wrap;"><span class="visit-tag">Dr. A.
+                                        Rao</span><span class="visit-tag">Psychiatry Dept.</span><span
+                                        class="visit-tag">CBT Referral</span></div>
+                            </div>
+                        </div>
+
+                        <div class="visit-entry">
+                            <div class="visit-dot" style="background: var(--primary);"></div>
+                            <div class="visit-date">Dec 03, 2025</div>
+                            <div class="visit-body">
+                                <div
+                                    style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+                                    <h4 style="color:var(--text); font-size:1rem;">Annual Physical + Cardiology Screen
+                                    </h4>
+                                    <span
+                                        style="font-size:0.73rem; padding:3px 10px; border-radius:100px; background:rgba(56,189,248,0.1); color:var(--primary); border:1px solid rgba(56,189,248,0.25); white-space:nowrap; margin-left:12px;">Scheduled</span>
+                                </div>
+                                <p
+                                    style="font-size: 0.85rem; color:var(--text-muted); line-height:1.6; margin-bottom:10px;">
+                                    Routine annual health check. Mild Stage 1 hypertension detected. Started on low-dose
+                                    Amlodipine 5mg. Cholesterol borderline (LDL 138 mg/dL). Follow-up in 3 months.</p>
+                                <div style="display:flex; gap:8px; flex-wrap:wrap;"><span class="visit-tag">Dr. S.
+                                        Mehta</span><span class="visit-tag">Cardiology</span><span
+                                        class="visit-tag">Lipid Panel</span></div>
+                            </div>
+                        </div>
+
+                        <div class="visit-entry" style="margin-bottom:0;">
+                            <div class="visit-dot" style="background: #4ade80;"></div>
+                            <div class="visit-date">Oct 20, 2025</div>
+                            <div class="visit-body">
+                                <div
+                                    style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+                                    <h4 style="color:var(--text); font-size:1rem;">Initial Mental Health Assessment</h4>
+                                    <span
+                                        style="font-size:0.73rem; padding:3px 10px; border-radius:100px; background:rgba(74,222,128,0.1); color:#4ade80; border:1px solid rgba(74,222,128,0.25); white-space:nowrap; margin-left:12px;">First
+                                        Visit</span>
+                                </div>
+                                <p
+                                    style="font-size: 0.85rem; color:var(--text-muted); line-height:1.6; margin-bottom:10px;">
+                                    Patient self-referred. PHQ-9 score: 14 (moderate depression). GAD-7 score: 16
+                                    (severe anxiety). Commenced Sertraline 50mg, referred to individual therapy.
+                                    EmpathyFirst onboarding completed.</p>
+                                <div style="display:flex; gap:8px; flex-wrap:wrap;"><span class="visit-tag">Dr. A.
+                                        Rao</span><span class="visit-tag">Psychiatry</span><span
+                                        class="visit-tag">PHQ-9: 14</span><span class="visit-tag">GAD-7: 16</span></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ═══ TAB: MEDICATIONS ═══ -->
+                <div id="panel-meds" style="display:none;">
+                    <div style="display: flex; flex-direction: column; gap: 14px;">
+
+                        <div class="med-row">
+                            <div
+                                style="width: 44px; height: 44px; border-radius: 12px; background: rgba(129,140,248,0.15); display:flex; align-items:center; justify-content:center; font-size:1.3rem; flex-shrink:0;">
+                                💊</div>
+                            <div style="flex:1;">
+                                <div
+                                    style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                                    <span style="font-weight:700; color:var(--text); font-size:0.95rem;">Sertraline
+                                        (Zoloft)</span>
+                                    <span
+                                        style="font-size:0.73rem; padding:3px 10px; border-radius:100px; background:rgba(74,222,128,0.1); color:#4ade80; border:1px solid rgba(74,222,128,0.25); font-weight:600;">Active</span>
+                                </div>
+                                <div style="font-size:0.82rem; color:var(--text-muted);">75 mg · Once daily (morning) ·
+                                    <b style="color:var(--text);">Antidepressant / Anxiolytic</b>
+                                </div>
+                                <div style="font-size:0.78rem; color:var(--text-muted); margin-top:4px;">Started: Jan
+                                    15, 2026 &nbsp;|&nbsp; Prescribed by: Dr. A. Rao</div>
+                            </div>
+                        </div>
+
+                        <div class="med-row">
+                            <div
+                                style="width:44px; height:44px; border-radius:12px; background:rgba(56,189,248,0.12); display:flex; align-items:center; justify-content:center; font-size:1.3rem; flex-shrink:0;">
+                                🔵</div>
+                            <div style="flex:1;">
+                                <div
+                                    style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                                    <span style="font-weight:700; color:var(--text); font-size:0.95rem;">Amlodipine
+                                        (Norvasc)</span>
+                                    <span
+                                        style="font-size:0.73rem; padding:3px 10px; border-radius:100px; background:rgba(74,222,128,0.1); color:#4ade80; border:1px solid rgba(74,222,128,0.25); font-weight:600;">Active</span>
+                                </div>
+                                <div style="font-size:0.82rem; color:var(--text-muted);">5 mg · Once daily (evening) ·
+                                    <b style="color:var(--text);">Calcium Channel Blocker</b>
+                                </div>
+                                <div style="font-size:0.78rem; color:var(--text-muted); margin-top:4px;">Started: Dec
+                                    03, 2025 &nbsp;|&nbsp; Prescribed by: Dr. S. Mehta</div>
+                            </div>
+                        </div>
+
+                        <div class="med-row">
+                            <div
+                                style="width:44px; height:44px; border-radius:12px; background:rgba(192,132,252,0.12); display:flex; align-items:center; justify-content:center; font-size:1.3rem; flex-shrink:0;">
+                                🌙</div>
+                            <div style="flex:1;">
+                                <div
+                                    style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                                    <span
+                                        style="font-weight:700; color:var(--text); font-size:0.95rem;">Melatonin</span>
+                                    <span
+                                        style="font-size:0.73rem; padding:3px 10px; border-radius:100px; background:rgba(74,222,128,0.1); color:#4ade80; border:1px solid rgba(74,222,128,0.25); font-weight:600;">Active</span>
+                                </div>
+                                <div style="font-size:0.82rem; color:var(--text-muted);">5 mg · 30 min before sleep · <b
+                                        style="color:var(--text);">Sleep Regulator</b></div>
+                                <div style="font-size:0.78rem; color:var(--text-muted); margin-top:4px;">Started: Oct
+                                    20, 2025 &nbsp;|&nbsp; Prescribed by: Dr. A. Rao</div>
+                            </div>
+                        </div>
+
+                        <div class="med-row" style="opacity:0.55;">
+                            <div
+                                style="width:44px; height:44px; border-radius:12px; background:rgba(255,255,255,0.04); display:flex; align-items:center; justify-content:center; font-size:1.3rem; flex-shrink:0;">
+                                ⭕</div>
+                            <div style="flex:1;">
+                                <div
+                                    style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                                    <span style="font-weight:700; color:var(--text-muted); font-size:0.95rem;">Lorazepam
+                                        (Ativan)</span>
+                                    <span
+                                        style="font-size:0.73rem; padding:3px 10px; border-radius:100px; background:rgba(255,255,255,0.05); color:var(--text-muted); border:1px solid var(--border); font-weight:600;">Discontinued</span>
+                                </div>
+                                <div style="font-size:0.82rem; color:var(--text-muted);">1 mg · As needed (acute
+                                    anxiety) · <b>Benzodiazepine</b></div>
+                                <div style="font-size:0.78rem; color:var(--text-muted); margin-top:4px;">Discontinued:
+                                    Feb 28, 2026 after ER visit &nbsp;|&nbsp; Dr. N. Kapoor</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ═══ TAB: LAB RESULTS ═══ -->
+                <div id="panel-labs" style="display:none;">
+                    <div style="display: flex; flex-direction: column; gap: 20px;">
+
+                        <div
+                            style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 4px;">
+                            Last Drawn: Feb 28, 2026</div>
+
+                        <div class="lab-row">
+                            <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                                <span style="font-size:0.9rem; font-weight:600; color:var(--text);">LDL
+                                    Cholesterol</span>
+                                <span style="font-size:0.88rem; color:#fb923c; font-weight:700;">138 <span
+                                        style="font-size:0.75rem; font-weight:400; color:var(--text-muted);">mg/dL
+                                        &nbsp;↑ Borderline</span></span>
+                            </div>
+                            <div
+                                style="height:7px; border-radius:100px; background:rgba(255,255,255,0.06); overflow:hidden;">
+                                <div
+                                    style="height:100%; width:72%; border-radius:100px; background:linear-gradient(90deg, #4ade80, #fb923c); transition:width 1s ease;">
+                                </div>
+                            </div>
+                            <div
+                                style="display:flex; justify-content:space-between; margin-top:5px; font-size:0.72rem; color:var(--text-muted);">
+                                <span>Optimal &lt;100</span><span>Borderline 130–159</span><span>High &gt;160</span>
+                            </div>
+                        </div>
+
+                        <div class="lab-row">
+                            <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                                <span style="font-size:0.9rem; font-weight:600; color:var(--text);">Blood Glucose
+                                    (Fasting)</span>
+                                <span style="font-size:0.88rem; color:#4ade80; font-weight:700;">94 <span
+                                        style="font-size:0.75rem; font-weight:400; color:var(--text-muted);">mg/dL
+                                        &nbsp;✓ Normal</span></span>
+                            </div>
+                            <div
+                                style="height:7px; border-radius:100px; background:rgba(255,255,255,0.06); overflow:hidden;">
+                                <div
+                                    style="height:100%; width:42%; border-radius:100px; background:linear-gradient(90deg, #4ade80, #34d399); transition:width 1s ease;">
+                                </div>
+                            </div>
+                            <div
+                                style="display:flex; justify-content:space-between; margin-top:5px; font-size:0.72rem; color:var(--text-muted);">
+                                <span>Normal &lt;100</span><span>Prediabetic 100–125</span><span>Diabetic &gt;126</span>
+                            </div>
+                        </div>
+
+                        <div class="lab-row">
+                            <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                                <span style="font-size:0.9rem; font-weight:600; color:var(--text);">Cortisol (Stress
+                                    Hormone)</span>
+                                <span style="font-size:0.88rem; color:#f87171; font-weight:700;">28.4 <span
+                                        style="font-size:0.75rem; font-weight:400; color:var(--text-muted);">μg/dL
+                                        &nbsp;↑ Elevated</span></span>
+                            </div>
+                            <div
+                                style="height:7px; border-radius:100px; background:rgba(255,255,255,0.06); overflow:hidden;">
+                                <div
+                                    style="height:100%; width:85%; border-radius:100px; background:linear-gradient(90deg, #4ade80, #fb923c, #f87171); transition:width 1s ease;">
+                                </div>
+                            </div>
+                            <div
+                                style="display:flex; justify-content:space-between; margin-top:5px; font-size:0.72rem; color:var(--text-muted);">
+                                <span>Normal 6–23</span><span>Elevated 23–40</span><span>Critical &gt;40</span>
+                            </div>
+                        </div>
+
+                        <div class="lab-row">
+                            <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                                <span style="font-size:0.9rem; font-weight:600; color:var(--text);">Haemoglobin</span>
+                                <span style="font-size:0.88rem; color:#4ade80; font-weight:700;">14.8 <span
+                                        style="font-size:0.75rem; font-weight:400; color:var(--text-muted);">g/dL
+                                        &nbsp;✓ Normal</span></span>
+                            </div>
+                            <div
+                                style="height:7px; border-radius:100px; background:rgba(255,255,255,0.06); overflow:hidden;">
+                                <div
+                                    style="height:100%; width:58%; border-radius:100px; background:linear-gradient(90deg, #38bdf8, #4ade80); transition:width 1s ease;">
+                                </div>
+                            </div>
+                            <div
+                                style="display:flex; justify-content:space-between; margin-top:5px; font-size:0.72rem; color:var(--text-muted);">
+                                <span>Low &lt;13</span><span>Normal 13–17</span><span>High &gt;17</span>
+                            </div>
+                        </div>
+
+                        <div class="lab-row">
+                            <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                                <span style="font-size:0.9rem; font-weight:600; color:var(--text);">Vitamin D3</span>
+                                <span style="font-size:0.88rem; color:#fb923c; font-weight:700;">18 <span
+                                        style="font-size:0.75rem; font-weight:400; color:var(--text-muted);">ng/mL
+                                        &nbsp;↓ Deficient</span></span>
+                            </div>
+                            <div
+                                style="height:7px; border-radius:100px; background:rgba(255,255,255,0.06); overflow:hidden;">
+                                <div
+                                    style="height:100%; width:24%; border-radius:100px; background:linear-gradient(90deg, #f87171, #fb923c); transition:width 1s ease;">
+                                </div>
+                            </div>
+                            <div
+                                style="display:flex; justify-content:space-between; margin-top:5px; font-size:0.72rem; color:var(--text-muted);">
+                                <span>Deficient &lt;20</span><span>Adequate 20–50</span><span>Optimal &gt;50</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* History card sub-styles */
+        .hist-tab {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            padding: 16px 22px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s ease;
+            font-family: 'Outfit', sans-serif;
+            white-space: nowrap;
+        }
+
+        .hist-tab:hover {
+            color: var(--text);
+        }
+
+        .hist-tab-active {
+            color: var(--primary) !important;
+            border-bottom-color: var(--primary) !important;
+        }
+
+        .visit-entry {
+            position: relative;
+            padding: 0 0 30px 28px;
+        }
+
+        .visit-dot {
+            position: absolute;
+            left: -7px;
+            top: 6px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.9);
+        }
+
+        .visit-date {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .visit-body {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px 22px;
+            transition: 0.2s;
+        }
+
+        .visit-body:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: var(--border-light);
+        }
+
+        .visit-tag {
+            padding: 4px 12px;
+            border-radius: 100px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .med-row {
+            display: flex;
+            gap: 18px;
+            align-items: flex-start;
+            padding: 18px 20px;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.02);
+            transition: 0.2s;
+        }
+
+        .med-row:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: var(--border-light);
+        }
+
+        .lab-row {
+            padding: 18px 20px;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.02);
+            transition: 0.2s;
+        }
+
+        .lab-row:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: var(--border-light);
+        }
+    </style>
+
+
+    <footer>
+        <div class="logo" style="font-size: 1.25rem;">✦ Empathy<span>First</span></div>
+        <p>&copy; 2026 EmpathyFirst AI Corp. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function toggleProfile() {
+            const profileDrop = document.getElementById('profileDropdown');
+            const settingsDrop = document.getElementById('settingsDropdown');
+            settingsDrop.classList.remove('active');
+            profileDrop.classList.toggle('active');
+        }
+
+        function toggleSettings() {
+            const profileDrop = document.getElementById('profileDropdown');
+            const settingsDrop = document.getElementById('settingsDropdown');
+            profileDrop.classList.remove('active');
+            settingsDrop.classList.toggle('active');
+        }
+
+        // Close dropdowns when clicking outside
+        window.onclick = function (event) {
+            if (!event.target.closest('.settings-btn') && !event.target.closest('.settings-icon-btn')) {
+                document.getElementById('profileDropdown').classList.remove('active');
+                document.getElementById('settingsDropdown').classList.remove('active');
+            }
+        }
+
+        // Medical History tab switcher
+        const TABS = ['overview', 'visits', 'meds', 'labs'];
+        function switchTab(name) {
+            TABS.forEach(t => {
+                document.getElementById('panel-' + t).style.display = (t === name) ? 'block' : 'none';
+                const btn = document.getElementById('tab-' + t);
+                btn.classList.toggle('hist-tab-active', t === name);
+            });
+        }
+    </script>
+    <script src="/static/script.js"></script>
+</body>
+
+</html>

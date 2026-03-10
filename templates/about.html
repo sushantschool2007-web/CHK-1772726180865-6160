@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmpathyFirst | About Us</title>
+    <meta name="description"
+        content="Learn about EmpathyFirst — the AI-powered mental health triage platform built to empower doctors and support patients through cutting-edge emotional intelligence technology.">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #09090b;
+            --surface: rgba(255, 255, 255, 0.03);
+            --surface-hover: rgba(255, 255, 255, 0.06);
+            --border: rgba(255, 255, 255, 0.08);
+            --border-light: rgba(255, 255, 255, 0.15);
+            --primary: #38bdf8;
+            --secondary: #818cf8;
+            --accent: #c084fc;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Ambient Background */
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -1;
+            opacity: 0.25;
+            pointer-events: none;
+        }
+
+        body::before {
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, var(--primary), transparent 60%);
+            top: -150px;
+            left: -200px;
+            animation: drift 18s ease-in-out infinite alternate;
+        }
+
+        body::after {
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, var(--accent), transparent 60%);
+            bottom: -200px;
+            right: -200px;
+            animation: drift 22s ease-in-out infinite alternate-reverse;
+        }
+
+        @keyframes drift {
+            from {
+                transform: translate(0, 0);
+            }
+
+            to {
+                transform: translate(60px, 80px);
+            }
+        }
+
+        /* ── Navbar ── */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            background: rgba(9, 9, 11, 0.75);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        .logo span {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .settings-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: 2px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: #fff;
+            font-weight: 800;
+            font-size: 1rem;
+            position: relative;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+        }
+
+        .settings-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.5);
+        }
+
+        /* ── Utilities ── */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        .glass {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            color: var(--primary);
+            background: rgba(56, 189, 248, 0.06);
+            margin-bottom: 20px;
+        }
+
+        /* ── Hero ── */
+        .about-hero {
+            padding: 170px 0 100px;
+            text-align: center;
+        }
+
+        .about-hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .about-hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 620px;
+            margin: 0 auto 48px;
+        }
+
+        /* ── Mission ── */
+        .mission-section {
+            padding: 80px 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .mission-text h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 20px;
+        }
+
+        .mission-text p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .mission-visual {
+            position: relative;
+            padding: 48px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.07), rgba(129, 140, 248, 0.07));
+            border: 1px solid var(--border-light);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .mission-stat {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 16px 20px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            transition: 0.3s;
+        }
+
+        .mission-stat:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: var(--border-light);
+            transform: translateX(5px);
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            min-width: 48px;
+            text-align: center;
+        }
+
+        .stat-text h4 {
+            font-size: 1.4rem;
+            color: var(--text);
+            letter-spacing: -0.5px;
+        }
+
+        .stat-text p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* ── Team ── */
+        .team-section {
+            padding: 80px 0 60px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 14px;
+        }
+
+        .section-header p {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .team-card {
+            padding: 36px 28px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.04), rgba(192, 132, 252, 0.04));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .team-card:hover::before {
+            opacity: 1;
+        }
+
+        .team-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--border-light);
+        }
+
+        .team-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin: 0 auto 20px;
+            border: 2px solid transparent;
+        }
+
+        .team-card:nth-child(1) .team-avatar {
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            border-color: rgba(56, 189, 248, 0.4);
+        }
+
+        .team-card:nth-child(2) .team-avatar {
+            background: linear-gradient(135deg, #818cf8, #c084fc);
+            border-color: rgba(192, 132, 252, 0.4);
+        }
+
+        .team-card:nth-child(3) .team-avatar {
+            background: linear-gradient(135deg, #c084fc, #f472b6);
+            border-color: rgba(244, 114, 182, 0.4);
+        }
+
+        .team-card:nth-child(4) .team-avatar {
+            background: linear-gradient(135deg, #34d399, #38bdf8);
+            border-color: rgba(52, 211, 153, 0.4);
+        }
+
+        .team-card:nth-child(5) .team-avatar {
+            background: linear-gradient(135deg, #fb923c, #f87171);
+            border-color: rgba(251, 146, 60, 0.4);
+        }
+
+        .team-card:nth-child(6) .team-avatar {
+            background: linear-gradient(135deg, #f87171, #c084fc);
+            border-color: rgba(248, 113, 113, 0.4);
+        }
+
+        .team-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .team-role {
+            font-size: 0.82rem;
+            color: var(--primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 12px;
+        }
+
+        .team-card p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ── Values ── */
+        .values-section {
+            padding: 80px 0;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .value-card {
+            padding: 32px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .value-card:nth-child(1)::after {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .value-card:nth-child(2)::after {
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+        }
+
+        .value-card:nth-child(3)::after {
+            background: linear-gradient(90deg, var(--accent), #f472b6);
+        }
+
+        .value-card:nth-child(4)::after {
+            background: linear-gradient(90deg, #34d399, var(--primary));
+        }
+
+        .value-card:nth-child(5)::after {
+            background: linear-gradient(90deg, #fb923c, #f87171);
+        }
+
+        .value-card:nth-child(6)::after {
+            background: linear-gradient(90deg, #f87171, var(--secondary));
+        }
+
+        .value-card:hover::after {
+            opacity: 1;
+        }
+
+        .value-card:hover {
+            background: var(--surface-hover);
+            border-color: var(--border-light);
+            transform: translateY(-4px);
+        }
+
+        .value-icon {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .value-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .value-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* ── Tech Stack ── */
+        .tech-section {
+            padding: 80px 0;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .tech-pill {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 22px;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: 0.3s;
+        }
+
+        .tech-pill:hover {
+            background: var(--surface-hover);
+            border-color: var(--border-light);
+            transform: scale(1.03);
+        }
+
+        .tech-pill span:first-child {
+            font-size: 1.4rem;
+        }
+
+        /* ── CTA ── */
+        .cta-section {
+            padding: 80px 0 120px;
+        }
+
+        .cta-box {
+            padding: 80px 60px;
+            border-radius: 32px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.08), rgba(192, 132, 252, 0.08));
+            border: 1px solid var(--border-light);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.12), transparent 70%);
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            pointer-events: none;
+        }
+
+        .cta-box h2 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+        }
+
+        .cta-box p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(56, 189, 248, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(56, 189, 248, 0.45);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-light);
+            color: var(--text);
+        }
+
+        .btn-outline:hover {
+            background: var(--surface-hover);
+            border-color: var(--text-muted);
+        }
+
+        /* ── Footer ── */
+        footer {
+            padding: 40px 5%;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-muted);
+        }
+
+        footer a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        footer a:hover {
+            color: var(--text);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 1024px) {
+            .mission-section {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .tech-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .about-hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .cta-box {
+                padding: 50px 28px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tech-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* ── Scroll animations ── */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <a href="{% url 'index' %}" class="logo">✦ Empathy<span>First</span></a>
+        <div class="nav-links">
+            <a href="{% url 'index' %}">Home</a>
+            <a href="{% url 'about' %}" class="active">About</a>
+            <a href="{% url 'dashboard' %}">Doctor's Dashboard</a>
+            <a href="https://gemini.google.com/app" target="_blank">Chat Triage</a>
+        </div>
+        <div class="nav-actions">
+            <a href="{% url 'auth' %}" class="btn btn-primary" style="padding: 10px 22px; font-size: 0.9rem;">Patient
+                Login</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="about-hero container fade-up">
+        <div class="tag">Our Story</div>
+        <h1>Built for Empathy.<br>Powered by <span class="gradient-text">Intelligence.</span></h1>
+        <p>EmpathyFirst was founded with a singular mission: to make mental health triage faster, more accurate, and
+            deeply human — by giving clinicians AI they can trust.</p>
+    </section>
+
+    <div class="container">
+
+        <!-- MISSION -->
+        <section class="mission-section">
+            <div class="mission-text fade-up">
+                <div class="tag">Our Mission</div>
+                <h2>Closing the Gap in Mental Health Care</h2>
+                <p>Over 970 million people worldwide live with a mental health condition. Yet, early identification
+                    remains the single biggest obstacle to effective treatment. Clinicians spend hours reviewing notes,
+                    listening to recordings, and reading between the lines.</p>
+                <p>EmpathyFirst changes that. Our multi-modal AI analyzes voice stress patterns, facial
+                    micro-expressions, and clinical narratives simultaneously — giving doctors a real-time picture of a
+                    patient's emotional state in seconds, not hours.</p>
+                <p>We are not replacing the doctor. We are giving them a superpower.</p>
+            </div>
+            <div class="mission-visual fade-up">
+                <div class="mission-stat">
+                    <div class="stat-icon">🧠</div>
+                    <div class="stat-text">
+                        <h4>3 AI Models</h4>
+                        <p>NLP, Vision & Voice — unified analysis</p>
+                    </div>
+                </div>
+                <div class="mission-stat">
+                    <div class="stat-icon">⚡</div>
+                    <div class="stat-text">
+                        <h4>&lt;1s Latency</h4>
+                        <p>Real-time clinical insights, no waiting</p>
+                    </div>
+                </div>
+                <div class="mission-stat">
+                    <div class="stat-icon">🔒</div>
+                    <div class="stat-text">
+                        <h4>256-bit Encryption</h4>
+                        <p>HIPAA-compliant, zero patient data stored</p>
+                    </div>
+                </div>
+                <div class="mission-stat">
+                    <div class="stat-icon">🌍</div>
+                    <div class="stat-text">
+                        <h4>4 Languages</h4>
+                        <p>English, Spanish, French & Hindi</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VALUES -->
+        <section class="values-section">
+            <div class="section-header fade-up">
+                <div class="tag">What We Stand For</div>
+                <h2>Core Values</h2>
+                <p>Everything we build is guided by a set of principles that put humans first and technology second.</p>
+            </div>
+            <div class="values-grid">
+                <div class="value-card fade-up">
+                    <div class="value-icon">❤️</div>
+                    <h3>Human-Centered Design</h3>
+                    <p>Every feature is designed around the clinical workflow and the emotional needs of vulnerable
+                        patients — not the other way around.</p>
+                </div>
+                <div class="value-card fade-up">
+                    <div class="value-icon">🔍</div>
+                    <h3>Radical Transparency</h3>
+                    <p>Our AI explains its reasoning at every step. No black boxes — only explainable, auditable
+                        decisions that clinicians can trust and challenge.</p>
+                </div>
+                <div class="value-card fade-up">
+                    <div class="value-icon">🛡️</div>
+                    <h3>Privacy by Default</h3>
+                    <p>We process data at the edge, never store videos or audio, and comply fully with HIPAA and GDPR
+                        from day one. Trust is not a feature, it's infrastructure.</p>
+                </div>
+                <div class="value-card fade-up">
+                    <div class="value-icon">⚖️</div>
+                    <h3>Equitable Access</h3>
+                    <p>Mental health care is a right, not a privilege. We build multilingual, multi-cultural tools to
+                        serve every patient — regardless of language or location.</p>
+                </div>
+                <div class="value-card fade-up">
+                    <div class="value-icon">🔬</div>
+                    <h3>Evidence-Based AI</h3>
+                    <p>Every model we ship is validated against peer-reviewed clinical research. We move fast, but never
+                        at the expense of clinical precision.</p>
+                </div>
+                <div class="value-card fade-up">
+                    <div class="value-icon">🤝</div>
+                    <h3>Collaborative Innovation</h3>
+                    <p>We partner with hospitals, researchers, and patient advocacy groups to co-build tools that solve
+                        real problems — from the inside out.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TEAM -->
+        <section class="team-section">
+            <div class="section-header fade-up">
+                <div class="tag">The People</div>
+                <h2>Meet the Team</h2>
+                <p>A multidisciplinary team of clinicians, AI engineers, and UX researchers united by one purpose.</p>
+            </div>
+            <div class="team-grid">
+                <div class="glass team-card fade-up">
+                    <div class="team-avatar">AR</div>
+                    <h3>Dr. Anjali Rao</h3>
+                    <div class="team-role">CEO & Co-Founder</div>
+                    <p>Psychiatrist turned entrepreneur. 12 years in clinical practice. Pioneered the use of AI-assisted
+                        triage in hospital settings across India and the UK.</p>
+                </div>
+                <div class="glass team-card fade-up">
+                    <div class="team-avatar">MK</div>
+                    <h3>Marcus Kim</h3>
+                    <div class="team-role">CTO & Co-Founder</div>
+                    <p>Former ML lead at DeepMind Health. Specializes in multimodal models and privacy-preserving
+                        machine learning for healthcare applications.</p>
+                </div>
+                <div class="glass team-card fade-up">
+                    <div class="team-avatar">SL</div>
+                    <h3>Sophia Laurent</h3>
+                    <div class="team-role">Head of Clinical Research</div>
+                    <p>PhD in Cognitive Neuroscience from Sorbonne. Bridges the gap between neuroscience research and
+                        real-world AI clinical tools with methodological rigor.</p>
+                </div>
+                <div class="glass team-card fade-up">
+                    <div class="team-avatar">JO</div>
+                    <h3>James Okonkwo</h3>
+                    <div class="team-role">Lead AI Engineer</div>
+                    <p>Built large-scale NLP systems at Google and OpenAI. Now focuses on fine-tuning conversational AI
+                        for clinical empathy and mental health risk detection.</p>
+                </div>
+                <div class="glass team-card fade-up">
+                    <div class="team-avatar">PM</div>
+                    <h3>Priya Mehta</h3>
+                    <div class="team-role">Chief Design Officer</div>
+                    <p>Award-winning healthcare UX designer. Advocates for calm, accessible design that reduces
+                        cognitive load in high-stakes clinical environments.</p>
+                </div>
+                <div class="glass team-card fade-up">
+                    <div class="team-avatar">TC</div>
+                    <h3>Thomas Chen</h3>
+                    <div class="team-role">Head of Privacy & Compliance</div>
+                    <p>10 years in health data compliance. Led GDPR and HIPAA accreditation for three MedTech startups
+                        before joining EmpathyFirst to make privacy effortless.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TECH STACK -->
+        <section class="tech-section">
+            <div class="section-header fade-up">
+                <div class="tag">Under the Hood</div>
+                <h2>Technology Stack</h2>
+                <p>Built on a modern, reliable foundation that scales from a single clinic to a national health network.
+                </p>
+            </div>
+            <div class="tech-grid">
+                <div class="tech-pill fade-up"><span>🐍</span><span>Django & Python</span></div>
+                <div class="tech-pill fade-up"><span>✨</span><span>Gemini 1.5 Flash</span></div>
+                <div class="tech-pill fade-up"><span>👁️</span><span>Computer Vision</span></div>
+                <div class="tech-pill fade-up"><span>🎤</span><span>Web Speech API</span></div>
+                <div class="tech-pill fade-up"><span>🔐</span><span>256-bit AES</span></div>
+                <div class="tech-pill fade-up"><span>🌐</span><span>REST API</span></div>
+                <div class="tech-pill fade-up"><span>🗄️</span><span>SQLite / PostgreSQL</span></div>
+                <div class="tech-pill fade-up"><span>☁️</span><span>Google Cloud</span></div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section">
+            <div class="cta-box fade-up">
+                <h2>Ready to Transform <span class="gradient-text">Patient Care?</span></h2>
+                <p>Join forward-thinking clinicians who are already using EmpathyFirst to see patients more clearly,
+                    triage faster, and care deeper.</p>
+                <div class="btn-group">
+                    <a href="{% url 'dashboard' %}" class="btn btn-primary">Try the Dashboard →</a>
+                    <a href="{% url 'auth' %}" class="btn btn-outline">Patient Login</a>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <a href="{% url 'index' %}" class="logo" style="font-size: 1.2rem;">✦ Empathy<span>First</span></a>
+        <p>&copy; 2026 EmpathyFirst AI Corp. All Rights Reserved.</p>
+        <div style="display:flex; gap:20px; font-size:0.9rem;">
+            <a href="{% url 'about' %}">About</a>
+            <a href="{% url 'dashboard' %}">Dashboard</a>
+            <a href="{% url 'auth' %}">Login</a>
+        </div>
+    </footer>
+
+    <script>
+        // Intersection observer for scroll-based fade-up animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+
+</html>
