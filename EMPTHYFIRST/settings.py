@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 """
 Django settings for EMPTHYFIRST project.
 
@@ -129,7 +129,7 @@ GEMINI_MODEL = "gemini-1.5-flash"
 #   mongodb+srv://<user>:<password>@<cluster>.mongodb.net/
 MONGODB_URI  = "mongodb://localhost:27017/"
 MONGODB_NAME = "empathyfirst"   # Name of the database
-=======
+
 """
 Django settings for EMPTHYFIRST project.
 
@@ -248,4 +248,4 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
->>>>>>> f7ebb05bd0bad2549b0b2281b0fc3334f07bd2b8
+
