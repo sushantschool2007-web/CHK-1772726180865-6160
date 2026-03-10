@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<<<<<<< HEAD
 
 <head>
     <meta charset="UTF-8">
@@ -558,6 +559,286 @@
     </style>
 </head>
 
+=======
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Empathy First | Doctor's Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --bg: #09090b;
+        --surface: rgba(255, 255, 255, 0.03);
+        --surface-hover: rgba(255, 255, 255, 0.05);
+        --border: rgba(255, 255, 255, 0.08);
+        --border-light: rgba(255, 255, 255, 0.15);
+        --primary: #38bdf8;
+        --secondary: #818cf8;
+        --text: #f8fafc;
+        --text-muted: #94a3b8;
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', sans-serif; }
+    
+    body {
+        background-color: var(--bg);
+        color: var(--text);
+        overflow-x: hidden;
+        line-height: 1.6;
+    }
+
+    /* Ambient Background Effects */
+    body::before, body::after {
+        content: '';
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(120px);
+        z-index: -1;
+        opacity: 0.3;
+        animation: float 15s ease-in-out infinite alternate;
+        pointer-events: none;
+    }
+    body::before {
+        width: 600px; height: 600px;
+        background: radial-gradient(circle, var(--primary), transparent 60%);
+        top: -100px; left: -200px;
+    }
+    body::after {
+        width: 800px; height: 800px;
+        background: radial-gradient(circle, var(--secondary), transparent 60%);
+        bottom: -200px; right: -200px;
+        animation-delay: -5s;
+    }
+    @keyframes float {
+        0% { transform: translate(0, 0); }
+        100% { transform: translate(50px, 80px); }
+    }
+
+    /* Typography & Utilities */
+    h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
+    p { color: var(--text-muted); }
+    a { text-decoration: none; color: inherit; }
+    
+    .glass {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border-radius: 20px;
+        transition: all 0.3s ease;
+    }
+    
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 28px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border: none;
+        outline: none;
+    }
+    .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: #fff;
+        box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+    }
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(56, 189, 248, 0.4);
+    }
+
+    /* Navbar */
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 24px 5%;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 100;
+        background: rgba(9, 9, 11, 0.7);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+    }
+    .logo {
+        font-size: 1.5rem;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .logo span {
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+    .nav-links {
+        display: flex;
+        gap: 32px;
+    }
+    .nav-links a {
+        font-weight: 500;
+        color: var(--text-muted);
+        transition: color 0.2s;
+    }
+    .nav-links a:hover {
+        color: var(--text);
+    }
+
+    /* Container */
+    .container {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 120px 5% 0; /* Adjusted for navbar */
+    }
+
+    /* Sections */
+    .section-header {
+        text-align: center;
+        margin-bottom: 64px;
+        margin-top: 40px;
+    }
+    .section-header h2 {
+        font-size: 2.75rem;
+        margin-bottom: 16px;
+    }
+    .section-header p {
+        font-size: 1.15rem;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    /* Tools Grid */
+    .tools-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        margin-bottom: 40px;
+    }
+    .tool-card {
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+    .tool-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--border-light);
+    }
+    .tool-card h3 {
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .tool-card-icon {
+        width: 44px; height: 44px;
+        border-radius: 12px;
+        background: rgba(56, 189, 248, 0.1);
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+    }
+    
+    /* Input Elements inside cards */
+    .tool-card input, .tool-card textarea {
+        width: 100%;
+        background: rgba(0,0,0,0.2);
+        border: 1px solid var(--border-light);
+        border-radius: 12px;
+        padding: 14px;
+        color: var(--text);
+        font-family: inherit;
+        resize: none;
+        transition: border 0.2s;
+    }
+    .tool-card input:focus, .tool-card textarea:focus {
+        border-color: var(--primary);
+        outline: none;
+    }
+    .tool-card video {
+        width: 100%;
+        border-radius: 12px;
+        margin-top: 10px;
+        background: #000;
+        aspect-ratio: 16/9;
+        object-fit: cover;
+    }
+    
+    .result-box {
+        margin-top: auto;
+        padding-top: 16px;
+        font-weight: 600;
+        color: var(--primary);
+        font-size: 1.1rem;
+        text-align: center;
+        min-height: 48px;
+    }
+
+    /* Interactive Dashboard Area */
+    .dashboard-preview {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 24px;
+        margin-bottom: 120px;
+    }
+    .dash-main {
+        padding: 40px;
+        min-height: 400px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 1px dashed var(--border-light);
+    }
+    .dash-side {
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    #dashboard {
+        font-size: 1.1rem;
+        line-height: 1.8;
+    }
+    #dashboard b {
+        color: var(--primary);
+        font-size: 1.3rem;
+        letter-spacing: 0.5px;
+    }
+
+    /* Footer */
+    footer {
+        padding: 40px 5%;
+        border-top: 1px solid var(--border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: var(--text-muted);
+        margin-top: 60px;
+    }
+
+    @media (max-width: 1024px) {
+        .tools-grid { grid-template-columns: repeat(2, 1fr); }
+        .dashboard-preview { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+        .nav-links { display: none; }
+        .tools-grid { grid-template-columns: 1fr; }
+    }
+</style>
+</head>
+>>>>>>> f7ebb05bd0bad2549b0b2281b0fc3334f07bd2b8
 <body>
 
     <!-- NAV -->
@@ -565,6 +846,7 @@
         <div class="logo">✦ Empathy<span>First</span></div>
         <div class="nav-links">
             <a href="{% url 'index' %}" style="color: var(--text);">Home</a>
+<<<<<<< HEAD
             <a href="{% url 'about' %}">About</a>
             <a href="{% url 'dashboard' %}" style="color: var(--text);">Doctor's Dashboard</a>
             <a href="https://gemini.google.com/app" target="_blank">Chat Triage</a>
@@ -663,12 +945,20 @@
             </div>
 
         </div>
+=======
+            <a href="{% url 'dashboard' %}" style="color: var(--text);">Doctor's Dashboard</a>
+            <a href="https://gemini.google.com/app" target="_blank">Chat Triage</a>
+        </div>
+        <a href="{% url 'index' %}" class="btn btn-outline" style="padding: 10px 20px; font-size: 0.9rem; margin-right: 10px;">← Back</a>
+        <a href="{% url 'auth' %}" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.9rem;">Patient Login</a>
+>>>>>>> f7ebb05bd0bad2549b0b2281b0fc3334f07bd2b8
     </nav>
 
     <div class="container">
         <!-- DEMO SECTION -->
         <section id="demo">
             <div class="section-header">
+<<<<<<< HEAD
                 <h2 data-i18n="dash_title">Multi-Modal Emotion AI</h2>
                 <p data-i18n="dash_subtitle">Test the capabilities of our reasoning engines below. Ensure permissions
                     are granted where necessary.
@@ -704,11 +994,28 @@
                         <button class="btn btn-primary" onclick="analyzeText()"
                             style="padding: 12px 18px; border-radius: 12px;" data-i18n="btn_send">Send</button>
                     </div>
+=======
+                <h2>Multi-Modal Emotion AI</h2>
+                <p>Test the capabilities of our reasoning engines below. Ensure permissions are granted where necessary.</p>
+            </div>
+            
+            <div class="tools-grid">
+                
+                <!-- TEXT AI -->
+                <div class="glass tool-card">
+                    <div class="tool-card-icon">🧠</div>
+                    <h3>AI Reasoning NLP</h3>
+                    <p>Detect emotional intent from patient descriptions and narratives.</p>
+                    <textarea id="symptoms" rows="4" placeholder="e.g., I've been feeling extremely helpless and overwhelmed lately..."></textarea>
+                    <button class="btn btn-primary" onclick="analyzeText()" style="width: 100%;">Run Analysis</button>
+                    <div id="textResult" class="result-box" style="white-space: pre-wrap; text-align: left; font-size: 0.95rem; font-weight: normal; line-height: 1.5;"></div>
+>>>>>>> f7ebb05bd0bad2549b0b2281b0fc3334f07bd2b8
                 </div>
 
                 <!-- CAMERA AI -->
                 <div class="glass tool-card">
                     <div class="tool-card-icon">📷</div>
+<<<<<<< HEAD
                     <h3 data-i18n="tool_vision_title">AI Visual Health Scan</h3>
                     <p data-i18n="tool_vision_desc">Early Health Indicator Detection via eye and skin wellness
                         indicators.</p>
@@ -718,21 +1025,35 @@
                     <div id="faceResult" class="result-box"
                         style="white-space: pre-wrap; text-align: left; font-size: 0.95rem; font-weight: normal; line-height: 1.5;">
                     </div>
+=======
+                    <h3>AI Visual Health Scan</h3>
+                    <p>Early Health Indicator Detection via eye and skin wellness indicators.</p>
+                    <button class="btn btn-primary" onclick="startCamera()" style="width: 100%;">Start Visual Scan</button>
+                    <video id="video" autoplay style="display: none;"></video>
+                    <div id="faceResult" class="result-box" style="white-space: pre-wrap; text-align: left; font-size: 0.95rem; font-weight: normal; line-height: 1.5;"></div>
+>>>>>>> f7ebb05bd0bad2549b0b2281b0fc3334f07bd2b8
                 </div>
 
                 <!-- VOICE AI -->
                 <div class="glass tool-card">
                     <div class="tool-card-icon">🎤</div>
+<<<<<<< HEAD
                     <h3 data-i18n="tool_voice_title">Voice Stress Analysis</h3>
                     <p data-i18n="tool_voice_desc">Algorithmic decomposition of vocal tremors and speech velocity.</p>
                     <button class="btn btn-primary" onclick="startVoice()" style="width: 100%; margin-top: auto;"
                         data-i18n="btn_record">Record Sample</button>
+=======
+                    <h3>Voice Stress Analysis</h3>
+                    <p>Algorithmic decomposition of vocal tremors and speech velocity.</p>
+                    <button class="btn btn-primary" onclick="startVoice()" style="width: 100%; margin-top: auto;">Record Sample</button>
+>>>>>>> f7ebb05bd0bad2549b0b2281b0fc3334f07bd2b8
                     <div id="voiceResult" class="result-box"></div>
                 </div>
 
             </div>
         </section>
 
+<<<<<<< HEAD
 
         <!-- ─── PATIENT MEDICAL HISTORY ─── -->
         <div class="section-header" style="margin-top: 80px;">
@@ -1278,11 +1599,33 @@
     </style>
 
 
+=======
+        <!-- DASHBOARD PREVIEW -->
+        <div class="section-header" style="margin-top: 60px;">
+            <h2>Doctor's Dashboard Sync</h2>
+            <p>Insights merge directly into a central patient monitoring timeline.</p>
+        </div>
+        <section class="dashboard-preview">
+            <div class="glass dash-main">
+                <div style="opacity: 0.3; text-align: center;">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+                    <p style="margin-top: 10px;">Emotion Trend Analytics Timeline<br/>(Awaiting full integration)</p>
+                </div>
+            </div>
+            <div class="glass dash-side" id="dashboard">
+                <h3 style="color: var(--text);">Clinical Insight Center</h3>
+                <p style="margin-top: 10px; color: var(--text-muted);">Run a test in the nodes above to see insights populate here in real-time.</p>
+            </div>
+        </section>
+    </div>
+
+>>>>>>> f7ebb05bd0bad2549b0b2281b0fc3334f07bd2b8
     <footer>
         <div class="logo" style="font-size: 1.25rem;">✦ Empathy<span>First</span></div>
         <p>&copy; 2026 EmpathyFirst AI Corp. All Rights Reserved.</p>
     </footer>
 
+<<<<<<< HEAD
     <script>
         function toggleProfile() {
             const profileDrop = document.getElementById('profileDropdown');
@@ -1320,3 +1663,8 @@
 </body>
 
 </html>
+=======
+    <script src="/static/script.js"></script>
+</body>
+</html>
+>>>>>>> f7ebb05bd0bad2549b0b2281b0fc3334f07bd2b8

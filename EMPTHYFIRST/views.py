@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -205,3 +206,15 @@ def mongo_health(request):
         })
     except Exception as e:
         return JsonResponse({"status": "error", "error": str(e)}, status=500)
+=======
+from django.shortcuts import render
+
+def index(request):
+    return render(request, 'index.html')
+def dashboard(request):
+    return render(request, 'dashboard.html')
+def chatbot(request):
+    return render(request, 'chatbot.html')
+def auth(request):
+    return render(request, 'auth.html')
+>>>>>>> f7ebb05bd0bad2549b0b2281b0fc3334f07bd2b8

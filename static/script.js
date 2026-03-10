@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 let nlpHistory = [];
 
 const translations = {
@@ -319,14 +320,49 @@ async function analyzeText() {
    2. AI VISUAL HEALTH SCAN — Requires API Config
 ───────────────────────────────────────────── */
 
+=======
+const API_KEY = "AIzaSyDjkJCfYP3AhMOoF5SIaHM8sUPaWDgPMtA";
+
+async function analyzeText() {
+    const textResult = document.getElementById("textResult");
+    const symptoms = document.getElementById("symptoms").value;
+    if (!symptoms) {
+        textResult.innerText = "Please enter some symptoms first.";
+        return;
+    }
+    
+    textResult.innerText = "Analyzing text...";
+    
+    try {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                contents: [{ parts: [{ text: "Analyze the following symptoms for emotional and psychological intent. Keep it brief and medical. Symptoms: " + symptoms }] }]
+            })
+        });
+        const data = await response.json();
+        textResult.innerText = data.candidates[0].content.parts[0].text;
+    } catch (e) {
+        textResult.innerText = "Error analyzing text.";
+    }
+}
+
+>>>>>>> f7ebb05bd0bad2549b0b2281b0fc3334f07bd2b8
 let videoStream = null;
 
 async function startCamera() {
     const video = document.getElementById("video");
     const faceResult = document.getElementById("faceResult");
     const btn = document.querySelector('button[onclick="startCamera()"]');
+<<<<<<< HEAD
 
     if (videoStream) {
+=======
+    
+    if (videoStream) {
+        // Stop camera
+>>>>>>> f7ebb05bd0bad2549b0b2281b0fc3334f07bd2b8
         videoStream.getTracks().forEach(track => track.stop());
         videoStream = null;
         video.style.display = "none";
@@ -334,30 +370,50 @@ async function startCamera() {
         btn.innerText = "Start Visual Scan";
         return;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> f7ebb05bd0bad2549b0b2281b0fc3334f07bd2b8
     try {
         videoStream = await navigator.mediaDevices.getUserMedia({ video: true });
         video.srcObject = videoStream;
         video.style.display = "block";
         btn.innerText = "Stop Scanning";
+<<<<<<< HEAD
         faceResult.style.color = "#94a3b8";
         faceResult.innerText = "📷 Scanning face for emotional indicators...";
         setTimeout(captureAndAnalyzeFace, 3000);
     } catch (e) {
         faceResult.style.color = "#f87171";
         faceResult.innerText = "❌ Camera access denied: " + e.message;
+=======
+        faceResult.innerText = "Scanning face for emotional indicators...";
+        
+        // Wait a bit, capture a frame, then call Gemini
+        setTimeout(captureAndAnalyzeFace, 3000);
+    } catch (e) {
+        faceResult.innerText = "Camera access denied or unavailable: " + e.message;
+>>>>>>> f7ebb05bd0bad2549b0b2281b0fc3334f07bd2b8
     }
 }
 
 async function captureAndAnalyzeFace() {
     const video = document.getElementById("video");
     const faceResult = document.getElementById("faceResult");
+<<<<<<< HEAD
     if (!videoStream) return;
 
+=======
+    
+    if (!videoStream) return; // stopped
+    
+>>>>>>> f7ebb05bd0bad2549b0b2281b0fc3334f07bd2b8
     const canvas = document.createElement("canvas");
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
     canvas.getContext("2d").drawImage(video, 0, 0);
+<<<<<<< HEAD
     const base64Image = canvas.toDataURL("image/jpeg").split(',')[1];
 
     faceResult.style.color = "#94a3b8";
@@ -365,16 +421,30 @@ async function captureAndAnalyzeFace() {
 
     try {
         const data = await fetch('/api/vision/', {
+=======
+    
+    const base64Image = canvas.toDataURL("image/jpeg").split(',')[1];
+    
+    faceResult.innerText = "Analyzing facial expression...";
+    
+    try {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
+>>>>>>> f7ebb05bd0bad2549b0b2281b0fc3334f07bd2b8
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 contents: [{
                     parts: [
+<<<<<<< HEAD
                         { text: "Analyze the face in this image for mental health indicators (emotions, stress, fatigue). Be concise." },
+=======
+                        { text: "Analyze this image of a face to detect emotions and subtle health signs. Provide a short, professional medical assessment." },
+>>>>>>> f7ebb05bd0bad2549b0b2281b0fc3334f07bd2b8
                         { inlineData: { mimeType: "image/jpeg", data: base64Image } }
                     ]
                 }]
             })
+<<<<<<< HEAD
         }).then(res => res.json());
 
         const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text;
@@ -394,10 +464,22 @@ async function captureAndAnalyzeFace() {
 let recognition = null;
 let isRecording = false;
 let fullTranscript = "";
+=======
+        });
+        const data = await response.json();
+        faceResult.innerText = data.candidates[0].content.parts[0].text;
+    } catch (e) {
+        faceResult.innerText = "Error analyzing face: " + e.message;
+    }
+}
+
+let isRecording = false;
+>>>>>>> f7ebb05bd0bad2549b0b2281b0fc3334f07bd2b8
 
 function startVoice() {
     const voiceResult = document.getElementById("voiceResult");
     const btn = document.querySelector('button[onclick="startVoice()"]');
+<<<<<<< HEAD
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
     if (!SpeechRecognition) {
@@ -456,5 +538,19 @@ async function analyzeVoiceTranscript(transcript, voiceResult) {
         if (reply) updateDashboard("voice", reply);
     } catch (err) {
         voiceResult.innerText = "❌ Error: " + err.message;
+=======
+    
+    if (isRecording) {
+        isRecording = false;
+        btn.innerText = "Record Sample";
+        voiceResult.innerText = "Processing vocal stress indicators...";
+        setTimeout(() => {
+            voiceResult.innerText = "Confidence: 87%\nStress levels elevated. Micro-tremors detected in vocal chords indicative of anxiety.";
+        }, 2000);
+    } else {
+        isRecording = true;
+        btn.innerText = "Stop Recording";
+        voiceResult.innerText = "Recording... Speak now.";
+>>>>>>> f7ebb05bd0bad2549b0b2281b0fc3334f07bd2b8
     }
 }

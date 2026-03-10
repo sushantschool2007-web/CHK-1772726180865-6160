@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<<<<<<< HEAD
 
 <head>
     <meta charset="UTF-8">
@@ -660,12 +661,376 @@
     </style>
 </head>
 
+=======
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Empathy First | AI Triage</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --bg: #09090b;
+        --surface: rgba(255, 255, 255, 0.03);
+        --surface-hover: rgba(255, 255, 255, 0.05);
+        --border: rgba(255, 255, 255, 0.08);
+        --border-light: rgba(255, 255, 255, 0.15);
+        --primary: #38bdf8;
+        --secondary: #818cf8;
+        --text: #f8fafc;
+        --text-muted: #94a3b8;
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', sans-serif; }
+    
+    body {
+        background-color: var(--bg);
+        color: var(--text);
+        overflow-x: hidden;
+        line-height: 1.6;
+    }
+
+    /* Ambient Background Effects */
+    body::before, body::after {
+        content: '';
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(120px);
+        z-index: -1;
+        opacity: 0.3;
+        animation: float 15s ease-in-out infinite alternate;
+        pointer-events: none;
+    }
+    body::before {
+        width: 600px; height: 600px;
+        background: radial-gradient(circle, var(--primary), transparent 60%);
+        top: -100px; left: -200px;
+    }
+    body::after {
+        width: 800px; height: 800px;
+        background: radial-gradient(circle, var(--secondary), transparent 60%);
+        bottom: -200px; right: -200px;
+        animation-delay: -5s;
+    }
+    @keyframes float {
+        0% { transform: translate(0, 0); }
+        100% { transform: translate(50px, 80px); }
+    }
+
+    /* Typography & Utilities */
+    h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
+    p { color: var(--text-muted); }
+    a { text-decoration: none; color: inherit; }
+    
+    .glass {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border-radius: 20px;
+        transition: all 0.3s ease;
+    }
+    
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 28px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border: none;
+        outline: none;
+    }
+    .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: #fff;
+        box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+    }
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(56, 189, 248, 0.4);
+    }
+    .btn-outline {
+        background: transparent;
+        border: 1px solid var(--border-light);
+        color: var(--text);
+    }
+    .btn-outline:hover {
+        background: var(--surface-hover);
+        border-color: var(--text-muted);
+    }
+
+    /* Navbar */
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 24px 5%;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 100;
+        background: rgba(9, 9, 11, 0.7);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+    }
+    .logo {
+        font-size: 1.5rem;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .logo span {
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+    .nav-links {
+        display: flex;
+        gap: 32px;
+    }
+    .nav-links a {
+        font-weight: 500;
+        color: var(--text-muted);
+        transition: color 0.2s;
+    }
+    .nav-links a:hover {
+        color: var(--text);
+    }
+
+    /* Container */
+    .container {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 5%;
+    }
+
+    /* Hero */
+    .hero {
+        padding: 200px 0 120px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .hero h1 {
+        font-size: 4.5rem;
+        letter-spacing: -1.5px;
+        margin-bottom: 24px;
+        max-width: 900px;
+    }
+    .hero h1 span {
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+    .hero p {
+        font-size: 1.25rem;
+        max-width: 600px;
+        margin-bottom: 40px;
+    }
+    .hero-actions {
+        display: flex;
+        gap: 16px;
+    }
+
+    /* Stats Grid */
+    .stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+        margin-bottom: 120px;
+    }
+    .stat-card {
+        padding: 32px 24px;
+        text-align: center;
+    }
+    .stat-card h3 {
+        font-size: 3rem;
+        color: var(--text);
+        margin-bottom: 8px;
+    }
+    .stat-card p {
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.85rem;
+    }
+
+    /* Sections */
+    .section-header {
+        text-align: center;
+        margin-bottom: 64px;
+    }
+    .section-header h2 {
+        font-size: 2.75rem;
+        margin-bottom: 16px;
+    }
+    .section-header p {
+        font-size: 1.15rem;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    /* Tools Grid */
+    .tools-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        margin-bottom: 40px;
+    }
+    .tool-card {
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+    .tool-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--border-light);
+    }
+    .tool-card h3 {
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .tool-card-icon {
+        width: 44px; height: 44px;
+        border-radius: 12px;
+        background: rgba(56, 189, 248, 0.1);
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+    }
+    
+    /* Input Elements inside cards */
+    .tool-card input, .tool-card textarea {
+        width: 100%;
+        background: rgba(0,0,0,0.2);
+        border: 1px solid var(--border-light);
+        border-radius: 12px;
+        padding: 14px;
+        color: var(--text);
+        font-family: inherit;
+        resize: none;
+        transition: border 0.2s;
+    }
+    .tool-card input:focus, .tool-card textarea:focus {
+        border-color: var(--primary);
+        outline: none;
+    }
+    .tool-card video {
+        width: 100%;
+        border-radius: 12px;
+        margin-top: 10px;
+        background: #000;
+        aspect-ratio: 16/9;
+        object-fit: cover;
+    }
+    
+    .result-box {
+        margin-top: auto;
+        padding-top: 16px;
+        font-weight: 600;
+        color: var(--primary);
+        font-size: 1.1rem;
+        text-align: center;
+        min-height: 48px;
+    }
+
+    /* Interactive Dashboard Area */
+    .dashboard-preview {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 24px;
+        margin-bottom: 120px;
+    }
+    .dash-main {
+        padding: 40px;
+        min-height: 400px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 1px dashed var(--border-light);
+    }
+    .dash-side {
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    #dashboard {
+        font-size: 1.1rem;
+        line-height: 1.8;
+    }
+    #dashboard b {
+        color: var(--primary);
+        font-size: 1.3rem;
+        letter-spacing: 0.5px;
+    }
+
+    /* CTA */
+    .cta {
+        margin: 0 auto 120px;
+        padding: 80px 40px;
+        text-align: center;
+        background: linear-gradient(135deg, rgba(56,189,248,0.1), rgba(129,140,248,0.1));
+        border: 1px solid var(--border);
+        border-radius: 32px;
+        position: relative;
+        overflow: hidden;
+    }
+    .cta h2 {
+        font-size: 3rem;
+        margin-bottom: 24px;
+    }
+    .cta p {
+        font-size: 1.25rem;
+        margin-bottom: 40px;
+    }
+
+    /* Footer */
+    footer {
+        padding: 40px 5%;
+        border-top: 1px solid var(--border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: var(--text-muted);
+    }
+
+    @media (max-width: 1024px) {
+        .stats { grid-template-columns: repeat(2, 1fr); }
+        .tools-grid { grid-template-columns: repeat(2, 1fr); }
+        .dashboard-preview { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+        .hero h1 { font-size: 3rem; }
+        .nav-links { display: none; }
+        .tools-grid { grid-template-columns: 1fr; }
+        .stats { grid-template-columns: 1fr; }
+    }
+</style>
+</head>
+>>>>>>> f7ebb05bd0bad2549b0b2281b0fc3334f07bd2b8
 <body>
 
     <!-- NAV -->
     <nav>
         <div class="logo">✦ Empathy<span>First</span></div>
         <div class="nav-links">
+<<<<<<< HEAD
             <a href="{% url 'index' %}" style="color: var(--text);" data-i18n="nav_home">Home</a>
             <a href="{% url 'about' %}" data-i18n="nav_about">About</a>
             <a href="{% url 'dashboard' %}" data-i18n="nav_dashboard">Doctor's Dashboard</a>
@@ -778,6 +1143,24 @@
                     Demo</a>
                 <a href="https://gemini.google.com/app" target="_blank" class="btn btn-outline"
                     data-i18n="hero_btn_chat">Launch Chatbot</a>
+=======
+            <a href="{% url 'index' %}" style="color: var(--text);">Home</a>
+            <a href="{% url 'dashboard' %}">Doctor's Dashboard</a>
+            <a href="https://gemini.google.com/app" target="_blank">Chat Triage</a>
+        </div>
+        <a href="{% url 'auth' %}" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.9rem;">Patient Login</a>
+    </nav>
+
+    <div class="container">
+        
+        <!-- HERO -->
+        <section class="hero">
+            <h1>The Future of <span>Mental Health</span> Diagnosis</h1>
+            <p>Our intelligent AI platform detects subtle emotional signals in voice, facial expressions, and text narratives to assist doctors in early risk identification.</p>
+            <div class="hero-actions">
+                <a href="{% url 'dashboard' %}" class="btn btn-primary">Try Interactive Demo</a>
+                <a href="https://gemini.google.com/app" target="_blank" class="btn btn-outline">Launch Chatbot</a>
+>>>>>>> f7ebb05bd0bad2549b0b2281b0fc3334f07bd2b8
             </div>
         </section>
 
@@ -785,6 +1168,7 @@
         <section class="stats">
             <div class="glass stat-card">
                 <h3>99%</h3>
+<<<<<<< HEAD
                 <p data-i18n="stat_uptime">Uptime & Reliability</p>
             </div>
             <div class="glass stat-card">
@@ -798,6 +1182,21 @@
             <div class="glass stat-card">
                 <h3>256</h3>
                 <p data-i18n="stat_encryption">Bit Encryption (HIPAA)</p>
+=======
+                <p>Uptime & Reliability</p>
+            </div>
+            <div class="glass stat-card">
+                <h3>3</h3>
+                <p>Multi-modal Models</p>
+            </div>
+            <div class="glass stat-card">
+                <h3>&lt;1s</h3>
+                <p>Real-time Latency</p>
+            </div>
+            <div class="glass stat-card">
+                <h3>256</h3>
+                <p>Bit Encryption (HIPAA)</p>
+>>>>>>> f7ebb05bd0bad2549b0b2281b0fc3334f07bd2b8
             </div>
         </section>
 
@@ -805,10 +1204,16 @@
 
         <!-- CTA -->
         <section class="cta">
+<<<<<<< HEAD
             <h2 data-i18n="cta_title">Ready to Enhance Patient Care?</h2>
             <p data-i18n="cta_desc">Join the next generation of predictive emotional health diagnostics.</p>
             <a href="https://gemini.google.com/app" target="_blank" class="btn btn-primary"
                 style="padding: 16px 40px; font-size: 1.1rem;" data-i18n="cta_btn">Start Trial Program</a>
+=======
+            <h2>Ready to Enhance Patient Care?</h2>
+            <p>Join the next generation of predictive emotional health diagnostics.</p>
+            <a href="https://gemini.google.com/app" target="_blank" class="btn btn-primary" style="padding: 16px 40px; font-size: 1.1rem;">Start Trial Program</a>
+>>>>>>> f7ebb05bd0bad2549b0b2281b0fc3334f07bd2b8
         </section>
 
     </div>
@@ -818,6 +1223,7 @@
         <p>&copy; 2026 EmpathyFirst AI Corp. All Rights Reserved.</p>
     </footer>
 
+<<<<<<< HEAD
     <script>
         function toggleProfile() {
             const profileDrop = document.getElementById('profileDropdown');
@@ -844,4 +1250,8 @@
     <script src="/static/script.js"></script>
 </body>
 
+=======
+    <script src="/static/script.js"></script>
+</body>
+>>>>>>> f7ebb05bd0bad2549b0b2281b0fc3334f07bd2b8
 </html>
