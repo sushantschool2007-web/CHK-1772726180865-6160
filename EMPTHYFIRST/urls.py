@@ -18,8 +18,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from EMPTHYFIRST.views import (
-    index, dashboard, chatbot, auth, nlp_api, vision_api, about,
-    save_analysis_log, get_analysis_logs, mongo_health,
+    index, dashboard, chatbot, auth, user_logout, nlp_api, vision_api, about,
+    save_analysis_log, get_analysis_logs, mongo_health, gemini_flash_api, gemini_25_api,
 )
 
 urlpatterns = [
@@ -29,8 +29,11 @@ urlpatterns = [
     path('dashboard/', dashboard, name='dashboard'),
     path('chatbot/', chatbot, name='chatbot'),
     path('auth/', auth, name='auth'),
+    path('logout/', user_logout, name='logout'),
     path('api/nlp/', nlp_api, name='nlp_api'),
     path('api/vision/',        vision_api,        name='vision_api'),
+    path('api/gemini-flash/',  gemini_flash_api,  name='gemini_flash_api'),
+    path('api/gemini-2-5/',    gemini_25_api,     name='gemini_25_api'),
     # MongoDB-backed endpoints
     path('api/save-log/',      save_analysis_log, name='save_analysis_log'),
     path('api/get-logs/',      get_analysis_logs, name='get_analysis_logs'),

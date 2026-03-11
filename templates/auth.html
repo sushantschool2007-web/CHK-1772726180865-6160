@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<<<<<<< HEAD
 
 <head>
     <meta charset="UTF-8">
@@ -10,15 +9,15 @@
         rel="stylesheet">
     <style>
         :root {
-            --bg: #09090b;
-            --surface: rgba(255, 255, 255, 0.03);
-            --surface-hover: rgba(255, 255, 255, 0.05);
-            --border: rgba(255, 255, 255, 0.08);
-            --border-light: rgba(255, 255, 255, 0.15);
-            --primary: #38bdf8;
-            --secondary: #818cf8;
-            --text: #f8fafc;
-            --text-muted: #94a3b8;
+            --bg: #f8fafc;
+            --surface: rgba(255, 255, 255, 0.85);
+            --surface-hover: rgba(255, 255, 255, 1);
+            --border: rgba(0, 0, 0, 0.08);
+            --border-light: rgba(0, 0, 0, 0.15);
+            --primary: #0284c7;
+            --secondary: #4f46e5;
+            --text: #0f172a;
+            --text-muted: #475569;
         }
 
         * {
@@ -279,324 +278,58 @@
             position: relative;
         }
 
-        /* Form toggling class */
-        .show-register #login-form {
-            opacity: 0;
-            visibility: hidden;
-            transform: translateX(-20px);
-            position: absolute;
-        }
-
-        .show-register #register-form {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(0);
-            position: relative;
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 12px;
+            background-color: rgba(248, 113, 113, 0.1);
+            border-color: rgba(248, 113, 113, 0.2);
+            color: #f87171;
+            text-align: center;
+            font-size: 0.9rem;
+            display: none;
         }
     </style>
 </head>
 
-=======
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Empathy First | Patient Portal Access</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-    :root {
-        --bg: #09090b;
-        --surface: rgba(255, 255, 255, 0.03);
-        --surface-hover: rgba(255, 255, 255, 0.05);
-        --border: rgba(255, 255, 255, 0.08);
-        --border-light: rgba(255, 255, 255, 0.15);
-        --primary: #38bdf8;
-        --secondary: #818cf8;
-        --text: #f8fafc;
-        --text-muted: #94a3b8;
-    }
-    
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', sans-serif; }
-    
-    body {
-        background-color: var(--bg);
-        color: var(--text);
-        overflow: hidden;
-        line-height: 1.6;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-    }
-
-    /* Ambient Background Effects */
-    body::before, body::after {
-        content: '';
-        position: fixed;
-        border-radius: 50%;
-        filter: blur(120px);
-        z-index: -1;
-        opacity: 0.3;
-        animation: float 15s ease-in-out infinite alternate;
-        pointer-events: none;
-    }
-    body::before {
-        width: 600px; height: 600px;
-        background: radial-gradient(circle, var(--primary), transparent 60%);
-        top: -100px; left: -200px;
-    }
-    body::after {
-        width: 800px; height: 800px;
-        background: radial-gradient(circle, var(--secondary), transparent 60%);
-        bottom: -200px; right: -200px;
-        animation-delay: -5s;
-    }
-    @keyframes float {
-        0% { transform: translate(0, 0); }
-        100% { transform: translate(50px, 80px); }
-    }
-
-    /* Typography & Utilities */
-    h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
-    p { color: var(--text-muted); }
-    a { text-decoration: none; color: inherit; }
-    
-    .glass {
-        background: var(--surface);
-        border: 1px solid var(--border);
-        backdrop-filter: blur(24px);
-        -webkit-backdrop-filter: blur(24px);
-        border-radius: 20px;
-        transition: all 0.3s ease;
-    }
-
-    /* Navbar */
-    nav {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 24px 5%;
-        width: 100%;
-        background: transparent;
-        z-index: 100;
-    }
-    .logo {
-        font-size: 1.5rem;
-        font-weight: 800;
-        letter-spacing: -0.5px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    .logo span {
-        background: linear-gradient(90deg, var(--primary), var(--secondary));
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-    }
-    .btn-outline {
-        padding: 10px 20px;
-        border-radius: 12px;
-        background: transparent;
-        border: 1px solid var(--border-light);
-        color: var(--text);
-        font-weight: 600;
-        font-size: 0.9rem;
-        transition: all 0.2s ease;
-    }
-    .btn-outline:hover {
-        background: var(--surface-hover);
-        border-color: var(--text-muted);
-    }
-
-    /* Auth Container */
-    .auth-wrapper {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-    }
-
-    .auth-container {
-        width: 100%;
-        max-width: 440px;
-        padding: 40px;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .auth-header {
-        text-align: center;
-        margin-bottom: 30px;
-    }
-    .auth-header h2 {
-        font-size: 2rem;
-        margin-bottom: 8px;
-    }
-    .auth-header p {
-        font-size: 1rem;
-    }
-
-    /* Form Styles */
-    .form-group {
-        margin-bottom: 20px;
-    }
-    .form-group label {
-        display: block;
-        font-size: 0.9rem;
-        font-weight: 500;
-        color: var(--text);
-        margin-bottom: 8px;
-    }
-    .form-group input {
-        width: 100%;
-        background: rgba(0,0,0,0.2);
-        border: 1px solid var(--border-light);
-        border-radius: 12px;
-        padding: 14px 16px;
-        color: var(--text);
-        font-family: inherit;
-        font-size: 1rem;
-        transition: all 0.2s ease;
-    }
-    .form-group input:focus {
-        border-color: var(--primary);
-        outline: none;
-        box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
-    }
-    .form-group input::placeholder {
-        color: rgba(255, 255, 255, 0.2);
-    }
-
-    .btn-primary {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        padding: 14px 28px;
-        border-radius: 12px;
-        font-weight: 600;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        border: none;
-        background: linear-gradient(135deg, var(--primary), var(--secondary));
-        color: #fff;
-        box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
-        margin-top: 24px;
-    }
-    .btn-primary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(56, 189, 248, 0.4);
-    }
-
-    .auth-footer {
-        text-align: center;
-        margin-top: 24px;
-        font-size: 0.95rem;
-        color: var(--text-muted);
-    }
-    .auth-footer a {
-        color: var(--primary);
-        font-weight: 600;
-        transition: color 0.2s;
-    }
-    .auth-footer a:hover {
-        text-decoration: underline;
-    }
-
-    /* Tabs / Toggle */
-    .auth-forms {
-        position: relative;
-        min-height: 380px; /* enough to hold register form */
-    }
-    .form-box {
-        position: absolute;
-        top: 0; left: 0; right: 0;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        opacity: 0;
-        visibility: hidden;
-        transform: translateX(20px);
-    }
-    .form-box.active {
-        opacity: 1;
-        visibility: visible;
-        transform: translateX(0);
-        position: relative;
-    }
-
-    /* Form toggling class */
-    .show-register #login-form {
-        opacity: 0;
-        visibility: hidden;
-        transform: translateX(-20px);
-        position: absolute;
-    }
-    .show-register #register-form {
-        opacity: 1;
-        visibility: visible;
-        transform: translateX(0);
-        position: relative;
-    }
-
-</style>
-</head>
->>>>>>> f7ebb05bd0bad2549b0b2281b0fc3334f07bd2b8
 <body>
 
     <!-- NAV -->
     <nav>
-        <div class="logo">✦ Empathy<span>First</span></div>
-<<<<<<< HEAD
-        <a href="{% url 'index' %}" class="btn-outline">← Back to Home</a>
-=======
-        <a href="index.html" class="btn-outline">← Back to Home</a>
->>>>>>> f7ebb05bd0bad2549b0b2281b0fc3334f07bd2b8
+        <div class="logo">&#10022; Empathy<span>First</span></div>
+        <a href="{% url 'index' %}" class="btn-outline">&larr; Back to Home</a>
     </nav>
 
     <div class="auth-wrapper">
         <div class="glass auth-container" id="auth-container">
-<<<<<<< HEAD
+
+            <div id="auth-alert" class="alert"></div>
 
             <div class="auth-forms">
-
-=======
-            
-            <div class="auth-forms">
-                
->>>>>>> f7ebb05bd0bad2549b0b2281b0fc3334f07bd2b8
                 <!-- LOGIN FORM -->
                 <div class="form-box active" id="login-form">
                     <div class="auth-header">
                         <h2>Welcome back</h2>
                         <p>Sign in to your patient portal</p>
                     </div>
-<<<<<<< HEAD
 
-                    <form onsubmit="event.preventDefault(); window.location.href='{% url 'dashboard' %}';">
-=======
-                    
-                    <form onsubmit="event.preventDefault(); window.location.href='dashboard.html';">
->>>>>>> f7ebb05bd0bad2549b0b2281b0fc3334f07bd2b8
+                    <form id="loginForm" method="POST" onsubmit="handleLogin(event)">
+                        {% csrf_token %}
                         <div class="form-group">
-                            <label>Email Address</label>
-                            <input type="email" placeholder="patient@example.com" required>
+                            <label>Username</label>
+                            <input type="text" id="login_username" name="username" placeholder="patient123" required>
                         </div>
                         <div class="form-group">
                             <label>Password</label>
-                            <input type="password" placeholder="••••••••" required>
+                            <input type="password" id="login_password" name="password" placeholder="••••••••" required>
                         </div>
                         <div style="text-align: right; margin-top:-10px; margin-bottom: 20px;">
                             <a href="#" style="font-size: 0.85rem; color: var(--text-muted);">Forgot password?</a>
                         </div>
-<<<<<<< HEAD
 
-                        <button type="submit" class="btn-primary">Sign In to Dashboard</button>
+                        <button type="submit" class="btn-primary" id="loginBtn">Sign In to Dashboard</button>
 
-=======
-                        
-                        <button type="submit" class="btn-primary">Sign In to Dashboard</button>
-                        
->>>>>>> f7ebb05bd0bad2549b0b2281b0fc3334f07bd2b8
                         <div class="auth-footer">
                             Don't have an account? <a href="#" onclick="toggleAuth('register')">Create one</a>
                         </div>
@@ -609,34 +342,24 @@
                         <h2>Create Account</h2>
                         <p>Register for EmpathyFirst access</p>
                     </div>
-<<<<<<< HEAD
 
-                    <form onsubmit="event.preventDefault(); window.location.href='{% url 'dashboard' %}';">
-=======
-                    
-                    <form onsubmit="event.preventDefault(); window.location.href='dashboard.html';">
->>>>>>> f7ebb05bd0bad2549b0b2281b0fc3334f07bd2b8
+                    <form id="registerForm" method="POST" onsubmit="handleRegister(event)">
+                        {% csrf_token %}
                         <div class="form-group">
-                            <label>Full Name</label>
-                            <input type="text" placeholder="John Doe" required>
+                            <label>Username</label>
+                            <input type="text" id="reg_username" name="username" placeholder="patient123" required>
                         </div>
                         <div class="form-group">
                             <label>Email Address</label>
-                            <input type="email" placeholder="patient@example.com" required>
+                            <input type="email" id="reg_email" name="email" placeholder="patient@example.com" required>
                         </div>
                         <div class="form-group">
                             <label>Create Password</label>
-                            <input type="password" placeholder="••••••••" required>
+                            <input type="password" id="reg_password" name="password" placeholder="••••••••" required>
                         </div>
-<<<<<<< HEAD
 
-                        <button type="submit" class="btn-primary">Complete Registration</button>
+                        <button type="submit" class="btn-primary" id="registerBtn">Complete Registration</button>
 
-=======
-                        
-                        <button type="submit" class="btn-primary">Complete Registration</button>
-                        
->>>>>>> f7ebb05bd0bad2549b0b2281b0fc3334f07bd2b8
                         <div class="auth-footer">
                             Already have an account? <a href="#" onclick="toggleAuth('login')">Sign In</a>
                         </div>
@@ -649,16 +372,13 @@
 
     <script>
         function toggleAuth(type) {
-            const container = document.getElementById('auth-container');
             const loginForm = document.getElementById('login-form');
             const registerForm = document.getElementById('register-form');
-<<<<<<< HEAD
+            const alertBox = document.getElementById('auth-alert');
+
+            alertBox.style.display = 'none'; // hide alert on toggle
 
             if (type === 'register') {
-=======
-            
-            if(type === 'register') {
->>>>>>> f7ebb05bd0bad2549b0b2281b0fc3334f07bd2b8
                 loginForm.classList.remove('active');
                 setTimeout(() => registerForm.classList.add('active'), 100);
             } else {
@@ -666,11 +386,89 @@
                 setTimeout(() => loginForm.classList.add('active'), 100);
             }
         }
+
+        async function handleLogin(e) {
+            e.preventDefault();
+            const btn = document.getElementById('loginBtn');
+            const alertBox = document.getElementById('auth-alert');
+            const form = document.getElementById('loginForm');
+            const formData = new FormData(form);
+            formData.append('action', 'login');
+
+            btn.innerHTML = 'Signing In...';
+            btn.disabled = true;
+
+            try {
+                const response = await fetch('{% url "auth" %}', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': formData.get('csrfmiddlewaretoken')
+                    }
+                });
+                const data = await response.json();
+                if (data.success) {
+                    window.location.href = '{% url "dashboard" %}';
+                } else {
+                    alertBox.textContent = data.message || 'Invalid username or password';
+                    alertBox.style.display = 'block';
+                    btn.innerHTML = 'Sign In to Dashboard';
+                    btn.disabled = false;
+                }
+            } catch (err) {
+                alertBox.textContent = 'An error occurred. Please try again.';
+                alertBox.style.display = 'block';
+                btn.innerHTML = 'Sign In to Dashboard';
+                btn.disabled = false;
+            }
+        }
+
+        async function handleRegister(e) {
+            e.preventDefault();
+            const btn = document.getElementById('registerBtn');
+            const alertBox = document.getElementById('auth-alert');
+            const form = document.getElementById('registerForm');
+            const formData = new FormData(form);
+            formData.append('action', 'register');
+
+            btn.innerHTML = 'Creating Account...';
+            btn.disabled = true;
+
+            try {
+                const response = await fetch('{% url "auth" %}', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': formData.get('csrfmiddlewaretoken')
+                    }
+                });
+                const data = await response.json();
+                if (data.success) {
+                    toggleAuth('login');
+                    alertBox.textContent = 'Account created! Please sign in.';
+                    alertBox.style.backgroundColor = 'rgba(74, 222, 128, 0.1)';
+                    alertBox.style.borderColor = 'rgba(74, 222, 128, 0.2)';
+                    alertBox.style.color = '#4ade80';
+                    alertBox.style.display = 'block';
+                } else {
+                    alertBox.textContent = data.message || 'Registration failed';
+                    alertBox.style.backgroundColor = 'rgba(248, 113, 113, 0.1)';
+                    alertBox.style.borderColor = 'rgba(248, 113, 113, 0.2)';
+                    alertBox.style.color = '#f87171';
+                    alertBox.style.display = 'block';
+                }
+            } catch (err) {
+                alertBox.textContent = 'An error occurred. Please try again.';
+                alertBox.style.backgroundColor = 'rgba(248, 113, 113, 0.1)';
+                alertBox.style.borderColor = 'rgba(248, 113, 113, 0.2)';
+                alertBox.style.color = '#f87171';
+                alertBox.style.display = 'block';
+            }
+
+            btn.innerHTML = 'Complete Registration';
+            btn.disabled = false;
+        }
     </script>
 </body>
-<<<<<<< HEAD
 
 </html>
-=======
-</html>
->>>>>>> f7ebb05bd0bad2549b0b2281b0fc3334f07bd2b8
