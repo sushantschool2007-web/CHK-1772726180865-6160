@@ -704,7 +704,7 @@
             {% if request.user.is_authenticated %}
             <a href="{% url 'dashboard' %}">Doctor's Dashboard</a>
             {% endif %}
-            <a href="https://gemini.google.com/app" target="_blank">Chat Triage</a>
+            <a href="{% url 'chatbot' %}">Chat Triage</a>
         </div>
         <div class="nav-actions">
             {% if request.user.is_authenticated %}

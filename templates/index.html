@@ -672,7 +672,7 @@
             {% if request.user.is_authenticated %}
             <a href="{% url 'dashboard' %}" data-i18n="nav_dashboard">Doctor's Dashboard</a>
             {% endif %}
-            <a href="https://gemini.google.com/app" target="_blank" data-i18n="nav_triage">Chat Triage</a>
+            <a href="{% url 'chatbot' %}" data-i18n="nav_triage">Chat Triage</a>
         </div>
 
         {% if request.user.is_authenticated %}
@@ -793,8 +793,7 @@
                 {% else %}
                 <a href="{% url 'auth' %}" class="btn btn-primary" data-i18n="hero_btn_demo">Sign In for Dashboard</a>
                 {% endif %}
-                <a href="https://gemini.google.com/app" target="_blank" class="btn btn-outline"
-                    data-i18n="hero_btn_chat">Launch Chatbot</a>
+                <a href="{% url 'chatbot' %}" class="btn btn-outline" data-i18n="hero_btn_chat">Launch Chatbot</a>
             </div>
         </section>
 
@@ -824,8 +823,8 @@
         <section class="cta">
             <h2 data-i18n="cta_title">Ready to Enhance Patient Care?</h2>
             <p data-i18n="cta_desc">Join the next generation of predictive emotional health diagnostics.</p>
-            <a href="https://gemini.google.com/app" target="_blank" class="btn btn-primary"
-                style="padding: 16px 40px; font-size: 1.1rem;" data-i18n="cta_btn">Start Trial Program</a>
+            <a href="{% url 'chatbot' %}" class="btn btn-primary" style="padding: 16px 40px; font-size: 1.1rem;"
+                data-i18n="cta_btn">Start Trial Program</a>
         </section>
 
     </div>
